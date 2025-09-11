@@ -1,0 +1,28 @@
+Theory to review:
+
+Shell vs. Terminal:
+The terminal is the app that is used to enter commands. 
+The shell is the program that interprets those commands. There are different kinds of shells: Sh (Bourne Shell), Bash (Bourne again shell), zsh (Z shell), fish (friendly interactive shell), csh/tcsh (C shell or Tenex C shell).
+SSH Keypars: 
+These are two sets of keys, one public and one private, that allow you to authenticate and use services like Github without entering the password and in a secure way. The private key stays on your computer and is never shared. And the public key is the one that is shared with the service (like Github). So when you connect, the server asks to see that the private key you have matches the public key they have and if they match, you're in.
+Git config is the collection of settings for Git. It specifies your user name and email address, your main branch, your preferred editor, etc. There are two types, git global that applies to all the repos, and repo config that is only for that specific repo and overides the settings set up with global.
+Package Managers:
+Package managers are tools that allow you to install, update and uninstall software. Some examples are homebrew (brew), yum, apt, pip and others.
+VS Code is a code editor from Windows that integrates with Git.
+
+Self Questions:
+1) How to generate an SSH key?  
+   `ssh-keygen -t ed25519 -C "email"`
+
+2) What is an agent?  
+   `ssh-agent` holds keys so I don’t re-enter passphrases.
+
+3) Global vs repo .gitconfig?  
+   Global = applies to all repos; repo `.git/config` overrides global and only apply to that repo.
+
+4) Why dotfiles?
+   Dotfiles are configuration files that start with a . in front of the name which makes them hidden. For example: .zshrc, .bashrc, .gitconfig  
+   They store your personal settings for tools and programs. They Keep everything consistent.
+
+5) How to verify remote host keys?  
+   After the first time you SSH into a server, the key is stored in your computer. You can check it by going to `~/.ssh/known_hosts`.

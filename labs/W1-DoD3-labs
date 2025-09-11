@@ -1,0 +1,83 @@
+angelicasanztrujillo@MacBookPro sre-journey % mkdir notes labs
+angelicasanztrujillo@MacBookPro sre-journey % cat > README.md <<'EOF'
+heredoc> 
+**Purpose:** Track KodeKloud SRE Learning Path Progress and Labs.
+
+**Goals:**
+- Finish DevOps Prerequisite course
+- Learn by doing         
+- Document /notes and complete /labs with working examples
+
+**Cadence:**
+- Saturdays: 2-3 hours AI allowed
+
+**Structure:**
+- `/notes` – for DoDs                  
+- `/labs` – hands-on labs 
+EOF
+angelicasanztrujillo@MacBookPro sre-journey % ls
+labs		notes		README.md
+angelicasanztrujillo@MacBookPro sre-journey % cat README.md
+
+**Purpose:** Track KodeKloud SRE Learning Path Progress and Labs.
+
+**Goals:**
+- Finish DevOps Prerequisite course
+- Learn by doing
+- Document /notes and complete /labs with working examples
+
+**Cadence:**
+- Saturdays: 2-3 hours AI allowed
+
+**Structure:**
+- `/notes` – for DoDs
+- `/labs` – hands-on labs
+angelicasanztrujillo@MacBookPro sre-journey % cat > .gitignore <<'EOF'
+heredoc> .DS_Store
+node_modules/
+venv/
+.env
+.vscode/
+EOF
+angelicasanztrujillo@MacBookPro sre-journey % git add .
+angelicasanztrujillo@MacBookPro sre-journey % git commit -m "chore: scaffold repo with notes, labs, README, .gitignore"
+[main (root-commit) 808dade] chore: scaffold repo with notes, labs, README, .gitignore
+ 2 files changed, 19 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 README.md
+angelicasanztrujillo@MacBookPro sre-journey % git branch -M main
+angelicasanztrujillo@MacBookPro sre-journey % git remote add origin git@github.com:angiesanz-sre/sre-journey.git
+angelicasanztrujillo@MacBookPro sre-journey % git push -u origin main
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (4/4), 570 bytes | 570.00 KiB/s, done.
+Total 4 (delta 0), reused 0 (delta 0), pack-reused 0
+To github.com:angiesanz-sre/sre-journey.git
+ * [new branch]      main -> main
+branch 'main' set up to track 'origin/main'.
+angelicasanztrujillo@MacBookPro sre-journey % ls                               
+labs		notes		README.md
+angelicasanztrujillo@MacBookPro sre-journey % cd notes
+angelicasanztrujillo@MacBookPro notes % vi DoD2
+angelicasanztrujillo@MacBookPro notes % ls
+DoD2
+angelicasanztrujillo@MacBookPro notes % vi DoD3
+angelicasanztrujillo@MacBookPro notes % cd ..
+angelicasanztrujillo@MacBookPro sre-journey % git add .
+angelicasanztrujillo@MacBookPro sre-journey % git commit -m "docs: add DoD2, DoD3, Changelog.md and Markdown"
+[main 62c7d1f] docs: add DoD2, DoD3, Changelog.md and Markdown
+ 2 files changed, 69 insertions(+)
+ create mode 100644 notes/DoD2
+ create mode 100644 notes/DoD3
+angelicasanztrujillo@MacBookPro sre-journey % git push
+Enumerating objects: 6, done.
+Counting objects: 100% (6/6), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (5/5), 2.50 KiB | 2.50 MiB/s, done.
+Total 5 (delta 0), reused 0 (delta 0), pack-reused 0
+To github.com:angiesanz-sre/sre-journey.git
+   808dade..62c7d1f  main -> main
+

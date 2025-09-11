@@ -1,0 +1,24 @@
+angelicasanztrujillo@MacBookPro ~ % ssh-keygen -t ed25519 -C "1eliteinterpreter@gmail.com" -f ~/.ssh/id_ed25519
+
+Generating public/private ed25519 key pair.
+Enter passphrase for "/Users/angelicasanztrujillo/.ssh/id_ed25519" (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /Users/angelicasanztrujillo/.ssh/id_ed25519
+Your public key has been saved in /Users/angelicasanztrujillo/.ssh/id_ed25519.pub
+The key fingerprint is:
+**Redacted**
+The key's randomart image is:
+**Redacted**
+angelicasanztrujillo@MacBookPro ~ % eval "$(ssh-agent -s)"
+Agent pid 11141
+angelicasanztrujillo@MacBookPro ~ % ssh-add ~/.ssh/id_ed25519
+Identity added: /Users/angelicasanztrujillo/.ssh/id_ed25519 (1eliteinterpreter@gmail.com)
+angelicasanztrujillo@MacBookPro ~ % pbcopy < ~/.ssh/id_ed25519.pub
+angelicasanztrujillo@MacBookPro ~ % ssh -T git@github.com
+
+The authenticity of host 'github.com (140.82.116.4)' can't be established.
+ED25519 key fingerprint is **Redacted**
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? Yes
+Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.
+Hi angiesanz-sre! You've successfully authenticated, but GitHub does not provide shell access.

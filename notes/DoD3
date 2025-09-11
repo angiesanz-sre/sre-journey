@@ -1,0 +1,41 @@
+Theory to Review:
+
+README essentials:
+A README.md file is like the landing page for your repo. It explains what is it for, how to use it, the structure of it, who worked on it, and sometimes licensing information. 
+
+Repo Structure:
+README.md → overview.
+/notes → documentation, theory, Q&A.
+/labs → hands-on exercises, code.
+.gitignore → tells Git which files to ignore.
+LICENSE → license info if the repo is public.
+
+Licensing:
+A license is how you tell people how they can and cannot use your code.
+Types of licenses: MIT: most popular. Basically you can use the code, but if it breaks you can't blame the person sharing the code, and you have to give credit. It is very permissive.
+Apache 2.0 license: It's like the MIT but it protects you from patent lawsuits.
+GPL: General Public License: Forces projects to stay open-source by allowing to use the code, but the person must also share their code.
+No license: Is the default license. Basically everyone can look at the code but they cannot use it or modify it legally.
+
+Commit Message:
+Is the description of the changes you made and are now committing. For example: git commit -am "Add new feat"
+
+Markdown tips:
+Makdown is like a formatting language that makes plain text look better. For example, you can make bold letters, or insert links or images and things like that.
+
+Self Questions:
+
+1) What goes in README?  
+   Purpose, goals, usage, structure, evidence links.
+
+2) Why smaller commits?  
+   They are easier to review, revert, and understand for any other person using that code.
+
+3) How to write a good commit message?  
+   Make it like a short command, for exmaple: "feat: add SSH key lab", keep it less than 50 characters.
+
+4) What is a CHANGELOG?
+   It's like a historical record of the changes you have made to the code with each version or date. It includes things Added (new features), things Changed (updates or existing features), things Fixed (like bugs), and things Removed (like features that have been removed).
+
+5) **How to create a .gitignore?**  
+   Add patterns to `.gitignore` to exclude files from Git.

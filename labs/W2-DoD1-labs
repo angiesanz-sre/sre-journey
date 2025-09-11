@@ -1,0 +1,45 @@
+###Example of Three-way Merge with Conflict###
+angelicasanztrujillo@MacBookPro labs % git checkout main
+Already on 'main'
+Your branch is ahead of 'origin/main' by 2 commits.
+  (use "git push" to publish your local commits)
+angelicasanztrujillo@MacBookPro labs % git checkout -b feature
+Switched to a new branch 'feature'
+angelicasanztrujillo@MacBookPro labs % printf "line 1 (feature)\n" > W2-DoD1-labs.txt
+angelicasanztrujillo@MacBookPro labs % git commit -am "feat: change line 1 on feature"
+[feature b26e7a1] feat: change line 1 on feature
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+angelicasanztrujillo@MacBookPro labs % git checkout main
+Switched to branch 'main'
+Your branch is ahead of 'origin/main' by 2 commits.
+  (use "git push" to publish your local commits)
+angelicasanztrujillo@MacBookPro labs % printf "line 1 (main)\n" > W2-DoD1-labs.txt
+angelicasanztrujillo@MacBookPro labs % git commit -am "feat: change line 1 on main"
+[main 09761c2] feat: change line 1 on main
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+angelicasanztrujillo@MacBookPro labs % git merge feature
+Auto-merging labs/W2-DoD1-labs.txt
+CONFLICT (content): Merge conflict in labs/W2-DoD1-labs.txt
+Automatic merge failed; fix conflicts and then commit the result.
+angelicasanztrujillo@MacBookPro labs % printf "line 1 (merged)\n" > W2-DoD1-labs.txt
+angelicasanztrujillo@MacBookPro labs % git add W2-DoD1-labs.txt
+angelicasanztrujillo@MacBookPro labs % git commit -m "merge: resolve conflict between main and feature"
+[main 954986c] merge: resolve conflict between main and feature
+angelicasanztrujillo@MacBookPro labs % git log --oneline --graph --decorate --all
+*   954986c (HEAD -> main) merge: resolve conflict between main and feature
+|\  
+| * b26e7a1 (feature) feat: change line 1 on feature
+* | 09761c2 feat: change line 1 on main
+|/  
+* 389e557 chore: initial commit (W2-DoD1-labs.txt line 1)
+* 8bd15e5 feat: change line 1 on feature
+* 2c5545c (origin/main) Modify app.py to connect to chatGPT
+* 2ea6f06 Milestone 1: scaffold study-coach app inside monorepo
+* d957afc add cheatsheets
+* dc3b1ea Add labs
+* 62c7d1f docs: add DoD2, DoD3, Changelog.md and Markdown
+* 808dade chore: scaffold repo with notes, labs, README, .gitignore
+
+
+###Example of Fast-forward vs --no-ff##
+
