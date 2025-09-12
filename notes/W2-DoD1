@@ -1,0 +1,36 @@
+Three way merge
+When you make changes in the same place in two different branches and git doesn't know what change to keep, it will create a new merge. So git compares the two new changes with the way the file looked before. You can edit the file manually to resolve the conflict, and then commit and push the changes.
+
+Fast forward vs. no fast forward:
+Fast forward happens when the new branch has commits and the master branch doesn't have any new commits, so the pointer is moved forward to include all the new commits from the new branch directly and no actual mergin happens becasue there were no changes in the master branch.
+
+No Fast Forward happens when the master branch has commits and the new branch also has commits, and when merged, Git creates a separate merge commit to join the two histories instead of just moving the branch pointer forward.
+
+Rebase basics:
+Rebasing occurs when the new branch has commits and those commits are reapplied on top of the latest commits from the master branch, rewriting the commit history.
+
+Detached HEAD:
+A detached head happens whe you checkout something that is not a branch name like a commit hash or a remote tracking branch so the head points directly to a commit so it is floating. So any commits you make will not be attached to any branch.
+
+Stash use cases:
+Git stash is used to put aside changes that you haven't commited so you can work or test something else without losing your work. Use cases would be:
+To switch to a new branch
+To pull or rebase from the main branch but without commiting your changes yet.
+To try something new that you don't know if it's going to work without commiting your changes.
+You can have many different stashes but they are temporary. It is better to commit your work.
+
+
+When to rebase vs. merge:
+Rebase when you are the only one working on the main or master branch and you want a clean and straight history before pushing. 
+Merge when working collaboratively so people can see the changes that are being made and you need a more accurate history.
+
+How to fix a bad commit message? 
+If it hasn't been pushed you can use git commit --amend
+If it has been pushed you can also use git commit --amend and git push --force, but only do this if you know nobody else is working on that branch.
+If it has been pushed and pulled it is better not to fix. Make a new commit saying that you are correcting the previous commit message and why.
+
+How to recover a deleted branch?
+Use git reflog to find the commit where it last pointed, then create a new branch at that commit with git checkout -b <branch> <hash>
+
+What does HEAD~2 mean?
+HEAD~ is used to go back in your commit history. So HEAD~2 means go back two steps before the current commit. HEAD^ is used to choose the parent of a merge commit. So HEAD^2 would be the second parent, for example on a merge, the first parent would be main/master, the second parent would be the branch that was merged into main/parent. 
