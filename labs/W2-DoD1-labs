@@ -115,4 +115,7 @@ angelicasanztrujillo@MacBookPro git-no-ff-lab % git log --oneline --graph --deco
 |/  
 * e84191e Second commit for no fast forward merge example
 * 54c5174 Initial commit for no fast forward merge example
+
+
+*******************************************************************************************
 angelicasanztrujillo@MacBookPro git-no-ff-lab % 
