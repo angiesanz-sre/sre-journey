@@ -1,45 +1,121 @@
-###Example of Three-way Merge with Conflict###
-angelicasanztrujillo@MacBookPro labs % git checkout main
-Already on 'main'
-Your branch is ahead of 'origin/main' by 2 commits.
-  (use "git push" to publish your local commits)
-angelicasanztrujillo@MacBookPro labs % git checkout -b feature
-Switched to a new branch 'feature'
-angelicasanztrujillo@MacBookPro labs % printf "line 1 (feature)\n" > W2-DoD1-labs.txt
-angelicasanztrujillo@MacBookPro labs % git commit -am "feat: change line 1 on feature"
-[feature b26e7a1] feat: change line 1 on feature
- 1 file changed, 1 insertion(+), 1 deletion(-)
-angelicasanztrujillo@MacBookPro labs % git checkout main
-Switched to branch 'main'
-Your branch is ahead of 'origin/main' by 2 commits.
-  (use "git push" to publish your local commits)
-angelicasanztrujillo@MacBookPro labs % printf "line 1 (main)\n" > W2-DoD1-labs.txt
-angelicasanztrujillo@MacBookPro labs % git commit -am "feat: change line 1 on main"
-[main 09761c2] feat: change line 1 on main
- 1 file changed, 1 insertion(+), 1 deletion(-)
-angelicasanztrujillo@MacBookPro labs % git merge feature
-Auto-merging labs/W2-DoD1-labs.txt
-CONFLICT (content): Merge conflict in labs/W2-DoD1-labs.txt
+#*** Example of Fast Forward Merge ***
+angelicasanztrujillo@MacBookPro labs % mkdir git-ff-lab
+angelicasanztrujillo@MacBookPro labs % cd git-ff-lab
+angelicasanztrujillo@MacBookPro git-ff-lab % git init
+Initialized empty Git repository in /Users/angelicasanztrujillo/dev/sre-journey/labs/git-ff-lab/.git/
+angelicasanztrujillo@MacBookPro git-ff-lab % git checkout -b master
+Switched to a new branch 'master'
+angelicasanztrujillo@MacBookPro git-ff-lab % echo "Initial file for the fast forward lab" > ff-lab-practice.txt
+angelicasanztrujillo@MacBookPro git-ff-lab % git add ff-lab-practice.txt
+angelicasanztrujillo@MacBookPro git-ff-lab % git commit -m "chore: initial commit with ff-lab-practice.txt"
+[master (root-commit) 3b7d5a2] chore: initial commit with ff-lab-practice.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 ff-lab-practice.txt
+angelicasanztrujillo@MacBookPro git-ff-lab % git log --oneline --decorate --graph
+* 3b7d5a2 (HEAD -> master) chore: initial commit with ff-lab-practice.txt
+angelicasanztrujillo@MacBookPro git-ff-lab % git checkout -b second_branch_for_ff_lab
+Switched to a new branch 'second_branch_for_ff_lab'
+angelicasanztrujillo@MacBookPro git-ff-lab % echo "Add another file to merge" >> ff-lab-practice2.txt
+angelicasanztrujillo@MacBookPro git-ff-lab % git add ff-lab-practice2.txxt
+fatal: pathspec 'ff-lab-practice2.txxt' did not match any files
+angelicasanztrujillo@MacBookPro git-ff-lab % git add ff-lab-practice2.txt 
+angelicasanztrujillo@MacBookPro git-ff-lab % git commit -m "Add another commit to be ahead of master"
+[second_branch_for_ff_lab ba96fcb] Add another commit to be ahead of master
+ 1 file changed, 1 insertion(+)
+ create mode 100644 ff-lab-practice2.txt
+angelicasanztrujillo@MacBookPro git-ff-lab % git log --oneline --decorate --graph --all
+* ba96fcb (HEAD -> second_branch_for_ff_lab) Add another commit to be ahead of master
+* 3b7d5a2 (master) chore: initial commit with ff-lab-practice.txt
+angelicasanztrujillo@MacBookPro git-ff-lab % git checkout master
+Switched to branch 'master'
+angelicasanztrujillo@MacBookPro git-ff-lab % git merge second_branch_for_ff_la
+merge: second_branch_for_ff_la - not something we can merge
+angelicasanztrujillo@MacBookPro git-ff-lab % git merge second_branch_for_ff_lab
+Updating 3b7d5a2..ba96fcb
+Fast-forward
+ ff-lab-practice2.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 ff-lab-practice2.txt
+
+#*************************************************************
+
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git checkout -b master
+Switched to a new branch 'master'
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git status
+On branch master
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+angelicasanztrujillo@MacBookPro git-no-ff-lab % echo "Initial commit for no fast forward merge example" >> no-ff-merge-example.txt 
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git add no-ff-merge-example.txt
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git commit -m "Initial commit for no fast forward merge example"
+[master (root-commit) 54c5174] Initial commit for no fast forward merge example
+ 1 file changed, 1 insertion(+)
+ create mode 100644 no-ff-merge-example.txt
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git checkout -b new_branch
+Switched to a new branch 'new_branch'
+angelicasanztrujillo@MacBookPro git-no-ff-lab % echo "Adding a change to initial file for second commit" >> no-ff-merge-example.txt
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git add no-ff-merge-example.txt
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git commit -m "Second commit for no fast forward merge example"
+[new_branch e84191e] Second commit for no fast forward merge example
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git checkout master
+Switched to branch 'master'
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git merge new_branch -m "Merge new_branch into master"
+Updating 54c5174..e84191e
+Fast-forward (no commit created; -m option ignored)
+ no-ff-merge-example.txt | 1 +
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git log --oneline --decorate --graph --all
+* e84191e (HEAD -> master, new_branch) Second commit for no fast forward merge example
+* 54c5174 Initial commit for no fast forward merge example
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git checkout master                                   
+Already on 'master'
+angelicasanztrujillo@MacBookPro git-no-ff-lab % echo "Trying again becasue it didn't work again" >> no-ff-merge-example.txt
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git add no-ff-merge-example.txt                                                    
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git commit -m "Commiting again for no fast forward merge"                  
+[master 7b2b9a0] Commiting again for no fast forward merge
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git checkout new_branch                                  
+Switched to branch 'new_branch'
+angelicasanztrujillo@MacBookPro git-no-ff-lab % echo "Adding more changes to the file to commit again" >> no-ff-merge-example.txt
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git add no-ff-merge-example.txt                                            
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git commit -m "Add changes to the file to commit again"                          
+[new_branch ea6daff] Add changes to the file to commit again
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git checkout master
+Switched to branch 'master'
+angelicasanztrujillo@MacBookPro git-no-ff-lab % echo "One more change in master branch" >> no-ff-merge-example.txt
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git add no-ff-merge-example.txt                                                  
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git commit -m "Add more changes to the file to commit again"      
+[master d278f65] Add more changes to the file to commit again
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git checkout master
+Already on 'master'
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git merge new_branch -m "Merge for no fast forward merge example"
+Auto-merging no-ff-merge-example.txt
+CONFLICT (content): Merge conflict in no-ff-merge-example.txt
 Automatic merge failed; fix conflicts and then commit the result.
-angelicasanztrujillo@MacBookPro labs % printf "line 1 (merged)\n" > W2-DoD1-labs.txt
-angelicasanztrujillo@MacBookPro labs % git add W2-DoD1-labs.txt
-angelicasanztrujillo@MacBookPro labs % git commit -m "merge: resolve conflict between main and feature"
-[main 954986c] merge: resolve conflict between main and feature
-angelicasanztrujillo@MacBookPro labs % git log --oneline --graph --decorate --all
-*   954986c (HEAD -> main) merge: resolve conflict between main and feature
+angelicasanztrujillo@MacBookPro git-no-ff-lab % vi no-ff-merge-example.txt                                       
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git add no-ff-merge-example.txt                                   
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git commit -m "Conflict fixed"
+[master fd7617b] Conflict fixed
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git merge --continue        
+fatal: There is no merge in progress (MERGE_HEAD missing).
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git commit
+On branch master
+nothing to commit, working tree clean
+angelicasanztrujillo@MacBookPro git-no-ff-lab % git log --oneline --graph --decorate --all
+*   fd7617b (HEAD -> master) Conflict fixed
 |\  
-| * b26e7a1 (feature) feat: change line 1 on feature
-* | 09761c2 feat: change line 1 on main
+| * ea6daff (new_branch) Add changes to the file to commit again
+* | d278f65 Add more changes to the file to commit again
+* | 7b2b9a0 Commiting again for no fast forward merge
 |/  
-* 389e557 chore: initial commit (W2-DoD1-labs.txt line 1)
-* 8bd15e5 feat: change line 1 on feature
-* 2c5545c (origin/main) Modify app.py to connect to chatGPT
-* 2ea6f06 Milestone 1: scaffold study-coach app inside monorepo
-* d957afc add cheatsheets
-* dc3b1ea Add labs
-* 62c7d1f docs: add DoD2, DoD3, Changelog.md and Markdown
-* 808dade chore: scaffold repo with notes, labs, README, .gitignore
+* e84191e Second commit for no fast forward merge example
+* 54c5174 Initial commit for no fast forward merge example
 
 
-###Example of Fast-forward vs --no-ff##
-
+*******************************************************************************************
+angelicasanztrujillo@MacBookPro git-no-ff-lab % 
