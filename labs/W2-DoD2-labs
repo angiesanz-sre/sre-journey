@@ -1,0 +1,276 @@
+Kata Branch
+angelicasanztrujillo@MacBookPro labs % ls
+git-ff-lab	git-no-ff-lab	kata-branch	W1-DoD2-labs	W1-DoD3-labs	W2-DoD1-labs	W2-DoD2-labs
+angelicasanztrujillo@MacBookPro labs % cd kata-branch
+angelicasanztrujillo@MacBookPro kata-branch % git init
+Initialized empty Git repository in /Users/angelicasanztrujillo/dev/sre-journey/labs/kata-branch/.git/
+angelicasanztrujillo@MacBookPro kata-branch % git checkout -b master
+Switched to a new branch 'master'
+angelicasanztrujillo@MacBookPro kata-branch % echo "v1" > app.txt
+angelicasanztrujillo@MacBookPro kata-branch % git add app.txt && git commit -m "chore: initial"
+[master (root-commit) 21efe20] chore: initial
+ 1 file changed, 1 insertion(+)
+ create mode 100644 app.txt
+angelicasanztrujillo@MacBookPro kata-branch % git checkout -b feature/branch-demo
+Switched to a new branch 'feature/branch-demo'
+angelicasanztrujillo@MacBookPro kata-branch % echo "v2 on feature" >> app.tx
+angelicasanztrujillo@MacBookPro kata-branch % git commit -am "feat: feature change"
+On branch feature/branch-demo
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	app.tx
+
+nothing added to commit but untracked files present (use "git add" to track)
+angelicasanztrujillo@MacBookPro kata-branch % git add
+Nothing specified, nothing added.
+hint: Maybe you wanted to say 'git add .'?
+hint: Disable this message with "git config set advice.addEmptyPathspec false"
+angelicasanztrujillo@MacBookPro kata-branch % echo "v2 on feature" >> app.txt      
+angelicasanztrujillo@MacBookPro kata-branch % git commit -am "feat: feature change"
+[feature/branch-demo d2450dd] feat: feature change
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro kata-branch % git log --oneline --decorate --graph --all
+* d2450dd (HEAD -> feature/branch-demo) feat: feature change
+* 21efe20 (master) chore: initial
+___________________________________________________________________________________________
+
+Kata Rebase
+angelicasanztrujillo@MacBookPro labs % mkdir kata-rebase
+angelicasanztrujillo@MacBookPro labs % cd kata-rebase
+angelicasanztrujillo@MacBookPro kata-rebase % git init
+Initialized empty Git repository in /Users/angelicasanztrujillo/dev/sre-journey/labs/kata-rebase/.git/
+angelicasanztrujillo@MacBookPro kata-rebase % git checkout -b master
+Switched to a new branch 'master'
+angelicasanztrujillo@MacBookPro kata-rebase % echo "base v1" > notes.txt
+angelicasanztrujillo@MacBookPro kata-rebase % git add notes.txt && git commit -m "chore: base v1"
+[master (root-commit) 507bf83] chore: base v1
+ 1 file changed, 1 insertion(+)
+ create mode 100644 notes.txt
+angelicasanztrujillo@MacBookPro kata-rebase % git checkout -b feature/rebase-demo
+Switched to a new branch 'feature/rebase-demo'
+angelicasanztrujillo@MacBookPro kata-rebase % echo "feat A" >> notes.txt
+angelicasanztrujillo@MacBookPro kata-rebase % git commit -am "feat: add A"
+[feature/rebase-demo b3bfe84] feat: add A
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro kata-rebase % echo "feat B" >> notes.txt
+angelicasanztrujillo@MacBookPro kata-rebase % git commit -am "feat: add B"
+[feature/rebase-demo bd92499] feat: add B
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro kata-rebase % git checkout master
+Switched to branch 'master'
+angelicasanztrujillo@MacBookPro kata-rebase % echo "main v2" >> notes.txt
+angelicasanztrujillo@MacBookPro kata-rebase % git commit -am "feat: main v2 change"
+[master 06a1b40] feat: main v2 change
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro kata-rebase % git checkout feature/rebase-demo
+Switched to branch 'feature/rebase-demo'
+angelicasanztrujillo@MacBookPro kata-rebase % git rebase main
+fatal: invalid upstream 'main'
+angelicasanztrujillo@MacBookPro kata-rebase % git rebase master
+Auto-merging notes.txt
+CONFLICT (content): Merge conflict in notes.txt
+error: could not apply b3bfe84... feat: add A
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+hint: Disable this message with "git config set advice.mergeConflict false"
+Could not apply b3bfe84... # feat: add A
+angelicasanztrujillo@MacBookPro kata-rebase % vi notes.txt
+angelicasanztrujillo@MacBookPro kata-rebase % git add notes.txt
+angelicasanztrujillo@MacBookPro kata-rebase % git rebase --continue
+[detached HEAD a8500d6] feat: add A
+ 1 file changed, 1 insertion(+)
+Successfully rebased and updated refs/heads/feature/rebase-demo.
+angelicasanztrujillo@MacBookPro kata-rebase % git log --oneline --decorate --graph --all
+* f9b9861 (HEAD -> feature/rebase-demo) feat: add B
+* a8500d6 feat: add A
+* 06a1b40 (master) feat: main v2 change
+* 507bf83 chore: base v1
+angelicasanztrujillo@MacBookPro kata-rebase % cat notes.txt
+base v1
+main v2
+feat A
+feat B
+angelicasanztrujillo@MacBookPro kata-rebase % 
+
+____________________________________________________________________________________________
+
+Kata Cherry-pick
+angelicasanztrujillo@MacBookPro kata-cherry % git init
+Initialized empty Git repository in /Users/angelicasanztrujillo/dev/sre-journey/labs/kata-cherry/.git/
+angelicasanztrujillo@MacBookPro kata-cherry % git status
+On branch main
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+angelicasanztrujillo@MacBookPro kata-cherry % git checkout master
+error: pathspec 'master' did not match any file(s) known to git
+angelicasanztrujillo@MacBookPro kata-cherry % git checkout -b master
+Switched to a new branch 'master'
+angelicasanztrujillo@MacBookPro kata-cherry % printf "Hello\n" > app.txt
+angelicasanztrujillo@MacBookPro kata-cherry % git add app.txt && git commit -m "chore: base hello"
+[master (root-commit) c25ffe4] chore: base hello
+ 1 file changed, 1 insertion(+)
+ create mode 100644 app.txt
+angelicasanztrujillo@MacBookPro kata-cherry % git checkout -b feature/source
+Switched to a new branch 'feature/source'
+angelicasanztrujillo@MacBookPro kata-cherry % printf "Hello from FEATURE\n" > app.txt
+angelicasanztrujillo@MacBookPro kata-cherry % git commit -am "feat: feature edits line 1"
+[feature/source 973ccb4] feat: feature edits line 1
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+angelicasanztrujillo@MacBookPro kata-cherry % git checkout -b fix/target main
+fatal: 'main' is not a commit and a branch 'fix/target' cannot be created from it
+angelicasanztrujillo@MacBookPro kata-cherry % git checkout -b fix/target master
+Switched to a new branch 'fix/target'
+angelicasanztrujillo@MacBookPro kata-cherry % printf "Hello from TARGET\n" > app.txt
+angelicasanztrujillo@MacBookPro kata-cherry % git commit -am "feat: target edits line 1"
+[fix/target ef9bf8d] feat: target edits line 1
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+angelicasanztrujillo@MacBookPro kata-cherry % git log --oneline feature/source -1
+973ccb4 (feature/source) feat: feature edits line 1
+angelicasanztrujillo@MacBookPro kata-cherry % git checkout fix/target
+Already on 'fix/target'
+angelicasanztrujillo@MacBookPro kata-cherry % git cherry-pick 973ccb4
+Auto-merging app.txt
+CONFLICT (content): Merge conflict in app.txt
+error: could not apply 973ccb4... feat: feature edits line 1
+hint: After resolving the conflicts, mark them with
+hint: "git add/rm <pathspec>", then run
+hint: "git cherry-pick --continue".
+hint: You can instead skip this commit with "git cherry-pick --skip".
+hint: To abort and get back to the state before "git cherry-pick",
+hint: run "git cherry-pick --abort".
+hint: Disable this message with "git config set advice.mergeConflict false"
+angelicasanztrujillo@MacBookPro kata-cherry % vi app.txt
+angelicasanztrujillo@MacBookPro kata-cherry % git add app.txt
+angelicasanztrujillo@MacBookPro kata-cherry % git cherry-pick --continue
+[fix/target 2c2321b] cherry pick feat: feature edits line 1
+ Date: Sat Sep 13 13:29:54 2025 -0700
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro kata-cherry % git log --oneline --decorate -3
+2c2321b (HEAD -> fix/target) cherry pick feat: feature edits line 1
+ef9bf8d feat: target edits line 1
+c25ffe4 (master) chore: base hello
+angelicasanztrujillo@MacBookPro kata-cherry % cat app.txt
+Hello from TARGET
+Hello from FEATURE
+angelicasanztrujillo@MacBookPro kata-cherry % git show --stat
+commit 2c2321b8b7598a48af0cefe8034361aad161ec04 (HEAD -> fix/target)
+Author: Angie Sanz Trujillo <1eliteinterpreter@gmail.com>
+Date:   Sat Sep 13 13:29:54 2025 -0700
+
+    cherry pick feat: feature edits line 1
+
+ app.txt | 1 +
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro kata-cherry % git log --oneline --graph --decorate --all
+* 2c2321b (HEAD -> fix/target) cherry pick feat: feature edits line 1
+* ef9bf8d feat: target edits line 1
+| * 973ccb4 (feature/source) feat: feature edits line 1
+|/  
+* c25ffe4 (master) chore: base hello
+
+_______________________________________________________________________________________________
+
+Kata Bisect
+angelicasanztrujillo@MacBookPro kata-bisect % git init
+Initialized empty Git repository in /Users/angelicasanztrujillo/dev/sre-journey/labs/kata-bisect/.git/
+angelicasanztrujillo@MacBookPro kata-bisect % git checkout -b master
+Switched to a new branch 'master'
+angelicasanztrujillo@MacBookPro kata-bisect % echo "ok1" > calc.txt
+angelicasanztrujillo@MacBookPro kata-bisect % git add calc.txt && git commit -m "good: v1 works"
+[master (root-commit) ae9d6d7] good: v1 works
+ 1 file changed, 1 insertion(+)
+ create mode 100644 calc.txt
+angelicasanztrujillo@MacBookPro kata-bisect % echo "ok2" >> calc.txt
+angelicasanztrujillo@MacBookPro kata-bisect % git commit -am "good: v2 also works"
+[master 43be1d6] good: v2 also works
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro kata-bisect % echo "BUG" >> calc.txt
+angelicasanztrujillo@MacBookPro kata-bisect % git commit -am "bad: introduce bug"
+[master a0d9d42] bad: introduce bug
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro kata-bisect % echo "later" >> calc.txt
+angelicasanztrujillo@MacBookPro kata-bisect % git commit -am "after bug change"
+[master a377293] after bug change
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro kata-bisect % git bisect start
+status: waiting for both good and bad commits
+angelicasanztrujillo@MacBookPro kata-bisect % git bisect bad
+status: waiting for good commit(s), bad commit known
+angelicasanztrujillo@MacBookPro kata-bisect % git bisect good HEAD~2
+Bisecting: 0 revisions left to test after this (roughly 0 steps)
+[a0d9d42badbf950a82d3ff6c365bc9d343df7f2a] bad: introduce bug
+angelicasanztrujillo@MacBookPro kata-bisect % grep -q BUG calc.txt && echo "BUG present" || echo "no bug"
+BUG present
+angelicasanztrujillo@MacBookPro kata-bisect % git bisect bad
+a0d9d42badbf950a82d3ff6c365bc9d343df7f2a is the first bad commit
+commit a0d9d42badbf950a82d3ff6c365bc9d343df7f2a (HEAD)
+Author: Angie Sanz Trujillo <1eliteinterpreter@gmail.com>
+Date:   Sat Sep 13 13:39:51 2025 -0700
+
+    bad: introduce bug
+
+ calc.txt | 1 +
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro kata-bisect % git bisect reset
+Previous HEAD position was a0d9d42 bad: introduce bug
+Switched to branch 'master'
+angelicasanztrujillo@MacBookPro kata-bisect % git show a0d9d42
+commit a0d9d42badbf950a82d3ff6c365bc9d343df7f2a
+Author: Angie Sanz Trujillo <1eliteinterpreter@gmail.com>
+Date:   Sat Sep 13 13:39:51 2025 -0700
+
+    bad: introduce bug
+
+diff --git a/calc.txt b/calc.txt
+index 58223a7..af4cee9 100644
+--- a/calc.txt
++++ b/calc.txt
+@@ -1,2 +1,3 @@
+ ok1
+ ok2
++BUG
+angelicasanztrujillo@MacBookPro kata-bisect % 
+
+_____________________________________________________________________________________________________
+
+Kata Revert
+angelicasanztrujillo@MacBookPro kata-revert % git init
+Initialized empty Git repository in /Users/angelicasanztrujillo/dev/sre-journey/labs/kata-revert/.git/
+angelicasanztrujillo@MacBookPro kata-revert % git checkout -b master
+Switched to a new branch 'master'
+angelicasanztrujillo@MacBookPro kata-revert % echo "A" > data.txt
+angelicasanztrujillo@MacBookPro kata-revert % git add data.txt && git commit -m "feat: add A"
+[master (root-commit) bd10f4e] feat: add A
+ 1 file changed, 1 insertion(+)
+ create mode 100644 data.txt
+angelicasanztrujillo@MacBookPro kata-revert % echo "B" >> data.txt
+angelicasanztrujillo@MacBookPro kata-revert % git commit -am "feat: add B"
+[master 18f6b62] feat: add B
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro kata-revert % git revert --no-edit HEAD
+[master 00858f6] Revert "feat: add B"
+ Date: Sat Sep 13 13:48:33 2025 -0700
+ 1 file changed, 1 deletion(-)
+angelicasanztrujillo@MacBookPro kata-revert % git log --oneline --decorate -3
+00858f6 (HEAD -> master) Revert "feat: add B"
+18f6b62 feat: add B
+bd10f4e feat: add A
+angelicasanztrujillo@MacBookPro kata-revert % cat data.txt  
+A
+angelicasanztrujillo@MacBookPro kata-revert % git log --oneline
+00858f6 (HEAD -> master) Revert "feat: add B"
+18f6b62 feat: add B
+bd10f4e feat: add A
+angelicasanztrujillo@MacBookPro kata-revert % git revert --no-edit bd10f4e
+[master 858f6d0] Revert "feat: add A"
+ Date: Sat Sep 13 13:50:19 2025 -0700
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 data.txt
+angelicasanztrujillo@MacBookPro kata-revert % cat data.txt
+cat: data.txt: No such file or directory
+angelicasanztrujillo@MacBookPro kata-revert % ls
+angelicasanztrujillo@MacBookPro kata-revert % 
