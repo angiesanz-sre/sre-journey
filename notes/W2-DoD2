@@ -1,0 +1,30 @@
+Theory to Review:
+Branch Pointer: A branch pointer is just a pointer to a commit. HEAD is where you are now and it points to a commit. 
+
+Interactive rebasing: Allows you to modify your branch commit history before merging it to other branches to make it clearner, easier to understand, and better organized.
+
+Cherry-pick conflicts: Cherry-picking lets you copy a specific command from one branch to another. Cherry pick will take a look at what changes were made in each commit. If the same lines changed on both commits, Git will return a conflict. 
+
+Conflict markers: Markers inside the file that shows you the changes that were made on each commit on the same spot so you can choose the change you want to merbe both changes. If the changes didn't happen on the same lines, there won't be a conflict and git will be to combine the file.
+
+Binary search with bisect: 
+Bisect uses binary search to find bugs that were introduced at some point in one of the commits. Bisect jumps to a commit in the middle of one bad one and one good one and you can test to see if the bug is there. If the bug is not there, it will jumpt to the next middle point between a good commit and a bad one until finds where the bug starts. 
+
+Revert vs. Reset:
+Revert allows you to revert what you did in a commit without rewriting the whole project history. 
+Reset allows you to also undo changes, but in two different ways. With soft reset the branch pointer moves to the previous commit, keeping all changes in the staging area to review and commit again. So it creates a new commit to undue the changes of the prior commit. Mixed reset moves the pointer back and keeps all the changes in the working directory but unstaged, so you can review them, stage them and commit them. Hard reset moves the pointer back to the previous commit and deletes all the changes in the working directory like it never happened.
+
+Self questions:
+When to use bisect? When a bug is introduced in your code and you don't know when it was instroduced. Instead of searching each commit until finding the bug, bisect uses a binary search where you tell git "this commit is good" and "this commit is bad" and bisect will search the commits in between so you can test them until you find the one the first one that introduced the bug.
+
+How to resolve conflicts quickly?
+You can resolve conflicts quickly by using a code editor like Visual Studio Code that have clear buttons to accept or combine changes. Otherwise, you can also use a code editor like vi, open the file, review the changes and accept the ones you want to keep or get rid of or combine them, delete the conflic indicators, and save the file. Then git add and git commit. 
+
+When revert over reset?
+Use revert when you already pushed the bad commit to github and others may have pulled it, and if you want to keep the history accurate and transparent.
+Use reset when you haven't pushed the bad commit to github and you want to correct the changes before anyone else sees it.
+
+How to find a commit by message?
+git log --grep="keyword" or git log --oneline --grep="bug" 
+
+ 
