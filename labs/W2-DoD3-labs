@@ -1,0 +1,51 @@
+Merge/Rebase
+
+When to merge: When merging a pull request into the main/master branch. When you want to keep an accurate history, including branches created, etc. 
+In solo projects use command:
+git checkout main
+git pull
+git merge feature/<topic>
+
+If working with a team use:
+git checkout main
+git fetch origin && git pull --ff-only ##this tells git to update the history into your local repo so they match.
+git merge --no-ff feature/<topic> -m "merge: feature <topic>" ##this tells git to merge, no fast-forward, so there is a clear history of where the commit came from.
+
+When to rebase:
+When you are working on a branch and other people have added new commits to the main/master. You need to bring main/master up to date so your work also include those commits. This happens when working with a team.
+Use:
+git checkout feature/<topic>
+git fetch origin
+git rebase origin/main 
+
+When to revert:
+When a commit has already been pushed. 
+To revert a commit use:
+git log --oneline
+git revert <commit-hash> -m "reason/message")
+git push
+
+To revert a merge commit:
+git log --oneline
+git revert -m 1 <merge-commit-hash>
+git push
+
+When to do a hotfix:
+When the code in broken in production and must be fixed immediately:
+Steps:
+1. Got to the branch where the production code is:
+git checkout main
+git pull --ff-only
+git checkout -b hotfix/<issue>
+
+2. Edit the files and then:
+git add -A #to stage the files with the changes
+git commit -m "hotfix: <short description>" #commit the changes (this is in the branch from production)
+
+3. Open a pull request in github.
+
+4. Have someone else review it and marge it.
+
+5. Make sure that the fix is also applied in the developing branch so all new work also have that fix.
+
+
