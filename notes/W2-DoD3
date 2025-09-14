@@ -1,0 +1,33 @@
+Protected Branches:
+Branches like Main and Master that you can lock down so people don't push changes to them directly. You can approve the changes through a pull request after review.
+
+PR Reviews:
+Pull Requests that are reviewed by other team members to provide feedback, check for accuracy, and approve before they are merged.
+
+Hotfix strategy:
+A hotfix is a fix that you do on code that is already in production and being used. Instead of waiting for the next release to fix the code, if it's something important, you can fix it immediately in the code in production so people can continue to use it, and you also fix it in development for future releases. 
+
+Release tag:
+A release tag is a tag that is added to specific commits to specify the version of the code or software. If you can always go back to that exact version if needed.
+
+Backporting:
+Backporting is taking a fix or improvement that was made in the newer version of the code and applying it to older versions that are still supported.
+
+Self-questions:
+
+What is a release candidate?
+A version of the code or software that is almost ready to be released.
+
+Why protect main?
+Because the main or master branch is the one that will be released in production for people to use. So if you push changes directly to it without review it could introduce bugs or break it.
+
+How to revert a merge commit?
+git revert -m 1 <merge-commit-hash>. This command tells git to undo the merge but keep the code from the branch I was on when I did the merge. If it was git revert -m 2 <merge-commit-hash> it would be undoing the merge and keeping the code from the branch that was merged into the branch you were on.
+
+What is semantic versioning?
+A standard naming convention for versions. It means MAJOR.MINOR.PATCH. So major for breaking changes and not backward compatible. Minor means minor changes and still compatible. Patch means small fixes with no new features. So for example if the version changed from 5.3.1 to 5.3.2 means that minor fixes happened only. But if it changes from 5.3.1 to 6.1.1 means that a brand new version was released that is not compatible with the version prior and since it's a major release, minor and patch were reset to 0 and 0, so they also added a new feature and fixed a new bug since the major release.
+ 
+What is a cherry-pick risk?
+Cherry picking means copy one commit from one branch to another branch. So, if later on you decide to merge both branch, git will see the same commit twice and create conflicts.
+
+
