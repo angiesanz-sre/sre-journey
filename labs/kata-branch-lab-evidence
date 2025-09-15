@@ -1,0 +1,59 @@
+angelicasanztrujillo@MacBookPro notes % cd katas
+angelicasanztrujillo@MacBookPro katas % mkdir kata-branch-lab
+angelicasanztrujillo@MacBookPro katas % cd kata-branch-lab
+angelicasanztrujillo@MacBookPro kata-branch-lab % git init
+Initialized empty Git repository in /Users/angelicasanztrujillo/dev/sre-journey/notes/katas/kata-branch-lab/.git/
+angelicasanztrujillo@MacBookPro kata-branch-lab % git checkout master
+error: pathspec 'master' did not match any file(s) known to git
+angelicasanztrujillo@MacBookPro kata-branch-lab % git checkout -b master
+Switched to a new branch 'master'
+angelicasanztrujillo@MacBookPro kata-branch-lab % vi code.txt        
+angelicasanztrujillo@MacBookPro kata-branch-lab % git add code.txt 
+angelicasanztrujillo@MacBookPro kata-branch-lab % git git commit -m "Add initial commit"
+git: 'git' is not a git command. See 'git --help'.
+
+The most similar command is
+	init
+angelicasanztrujillo@MacBookPro kata-branch-lab % git commit -m "Add initial commit
+dquote> "
+[master (root-commit) 6fa0a81] Add initial commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 code.txt
+angelicasanztrujillo@MacBookPro kata-branch-lab % git checkout -b new_feature_branch   
+Switched to a new branch 'new_feature_branch'
+angelicasanztrujillo@MacBookPro kata-branch-lab % vi code.txt
+angelicasanztrujillo@MacBookPro kata-branch-lab % git add code.txt
+angelicasanztrujillo@MacBookPro kata-branch-lab % git commit -m "Add new feature to code.txt"
+[new_feature_branch 075abd3] Add new feature to code.txt
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro kata-branch-lab % git log --online
+fatal: unrecognized argument: --online
+angelicasanztrujillo@MacBookPro kata-branch-lab % git log --oneline
+075abd3 (HEAD -> new_feature_branch) Add new feature to code.txt
+6fa0a81 (master) Add initial commit
+angelicasanztrujillo@MacBookPro kata-branch-lab % ls
+code.txt
+angelicasanztrujillo@MacBookPro kata-branch-lab % git checkout -b another_new_feature_branch
+Switched to a new branch 'another_new_feature_branch'
+angelicasanztrujillo@MacBookPro kata-branch-lab % vi code.txt 
+angelicasanztrujillo@MacBookPro kata-branch-lab % git add code.txt
+angelicasanztrujillo@MacBookPro kata-branch-lab % git commit -m "Add another new feature to code.txt"
+[another_new_feature_branch ddb119a] Add another new feature to code.txt
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro kata-branch-lab % git log --oneline
+ddb119a (HEAD -> another_new_feature_branch) Add another new feature to code.txt
+075abd3 (new_feature_branch) Add new feature to code.txt
+6fa0a81 (master) Add initial commit
+angelicasanztrujillo@MacBookPro kata-branch-lab % git checkout -b one_more_feature_branch
+Switched to a new branch 'one_more_feature_branch'
+angelicasanztrujillo@MacBookPro kata-branch-lab % vi code.txt
+angelicasanztrujillo@MacBookPro kata-branch-lab % git add code.txt
+angelicasanztrujillo@MacBookPro kata-branch-lab % git commit -m "Add yet another new feature to code.txt to practice three times"
+[one_more_feature_branch 3afef83] Add yet another new feature to code.txt to practice three times
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro kata-branch-lab % git log --oneline
+3afef83 (HEAD -> one_more_feature_branch) Add yet another new feature to code.txt to practice three times
+ddb119a (another_new_feature_branch) Add another new feature to code.txt
+075abd3 (new_feature_branch) Add new feature to code.txt
+6fa0a81 (master) Add initial commit
+

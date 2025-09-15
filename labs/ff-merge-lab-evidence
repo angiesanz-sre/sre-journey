@@ -1,0 +1,86 @@
+angelicasanztrujillo@MacBookPro katas % cd kata-branch-lab
+angelicasanztrujillo@MacBookPro kata-branch-lab % ls
+code.txt
+angelicasanztrujillo@MacBookPro kata-branch-lab % vi kata-branch-lab-evidence
+angelicasanztrujillo@MacBookPro kata-branch-lab % ls
+code.txt
+angelicasanztrujillo@MacBookPro kata-branch-lab % vi kata-branch-lab-evidence    
+angelicasanztrujillo@MacBookPro kata-branch-lab % vi kata-branch-lab-evidence
+angelicasanztrujillo@MacBookPro kata-branch-lab % cd ..
+angelicasanztrujillo@MacBookPro katas % mkdir ff-merge-lab
+angelicasanztrujillo@MacBookPro katas % cd ff-merge-lab
+angelicasanztrujillo@MacBookPro ff-merge-lab % git init
+Initialized empty Git repository in /Users/angelicasanztrujillo/dev/sre-journey/labs/katas/ff-merge-lab/.git/
+angelicasanztrujillo@MacBookPro ff-merge-lab % git checkout -b master
+Switched to a new branch 'master'
+angelicasanztrujillo@MacBookPro ff-merge-lab % vi ff-merge-demo.txt
+angelicasanztrujillo@MacBookPro ff-merge-lab % add ff-merge-demo.txt
+zsh: command not found: add
+angelicasanztrujillo@MacBookPro ff-merge-lab % git add ff-merge-demo.txt
+angelicasanztrujillo@MacBookPro ff-merge-lab % git commit -m "First commit in fast forward merge kata"
+[master (root-commit) 2c150e5] First commit in fast forward merge kata
+ 1 file changed, 1 insertion(+)
+ create mode 100644 ff-merge-demo.txt
+angelicasanztrujillo@MacBookPro ff-merge-lab % git checkout -b new_branch_for_ff
+Switched to a new branch 'new_branch_for_ff'
+angelicasanztrujillo@MacBookPro ff-merge-lab % vi ff-merge-demo.txt
+angelicasanztrujillo@MacBookPro ff-merge-lab % git add ff-merge-demo.txt
+angelicasanztrujillo@MacBookPro ff-merge-lab % git commit -m "Second commit in fast forward merge kata"
+[new_branch_for_ff 7637753] Second commit in fast forward merge kata
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro ff-merge-lab % git checkout master
+Switched to branch 'master'
+angelicasanztrujillo@MacBookPro ff-merge-lab % git merge new_branch_for_ff
+Updating 2c150e5..7637753
+Fast-forward
+ ff-merge-demo.txt | 1 +
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro ff-merge-lab % git branch
+* master
+  new_branch_for_ff
+angelicasanztrujillo@MacBookPro ff-merge-lab % git log --oneline
+7637753 (HEAD -> master, new_branch_for_ff) Second commit in fast forward merge kata
+2c150e5 First commit in fast forward merge kata
+angelicasanztrujillo@MacBookPro ff-merge-lab % git checkout -b another_new_branch_for_ff
+Switched to a new branch 'another_new_branch_for_ff'
+angelicasanztrujillo@MacBookPro ff-merge-lab % vi ff-merge-demo.txt
+angelicasanztrujillo@MacBookPro ff-merge-lab % vi ff-merge-demo.txt
+angelicasanztrujillo@MacBookPro ff-merge-lab % git add ff-merge-demo.txt
+angelicasanztrujillo@MacBookPro ff-merge-lab % git commit -m "Third commit in fast forward merge"      
+[another_new_branch_for_ff 71d2ba2] Third commit in fast forward merge
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro ff-merge-lab % git checkout master
+Switched to branch 'master'
+angelicasanztrujillo@MacBookPro ff-merge-lab % git merge another_new_branch_for_ff          
+Updating 7637753..71d2ba2
+Fast-forward
+ ff-merge-demo.txt | 1 +
+ 1 file changed, 1 insertion(+)
+angelicasanztrujillo@MacBookPro ff-merge-lab % git branch   
+  another_new_branch_for_ff
+* master
+  new_branch_for_ff
+angelicasanztrujillo@MacBookPro ff-merge-lab % git log --oneline
+71d2ba2 (HEAD -> master, another_new_branch_for_ff) Third commit in fast forward merge
+7637753 (new_branch_for_ff) Second commit in fast forward merge kata
+2c150e5 First commit in fast forward merge kata
+angelicasanztrujillo@MacBookPro ff-merge-lab % git checkout -b yet_another_new_branch
+Switched to a new branch 'yet_another_new_branch'
+angelicasanztrujillo@MacBookPro ff-merge-lab % vi ff-merge-demo.txt
+angelicasanztrujillo@MacBookPro ff-merge-lab % git checkout master
+M	ff-merge-demo.txt
+Switched to branch 'master'
+angelicasanztrujillo@MacBookPro ff-merge-lab % git checkout yet_another_new_branch
+M	ff-merge-demo.txt
+Switched to branch 'yet_another_new_branch'
+angelicasanztrujillo@MacBookPro ff-merge-lab % git add ff-merge-demo.txt
+angelicasanztrujillo@MacBookPro ff-merge-lab % git commit -m "Fourth commit in fast forward merge"
+[yet_another_new_branch 6af627f] Fourth commit in fast forward merge
+ 1 file changed, 2 insertions(+)
+angelicasanztrujillo@MacBookPro ff-merge-lab % git checkout master
+Switched to branch 'master'
+angelicasanztrujillo@MacBookPro ff-merge-lab % git merge yet_another_new_branch                   
+Updating 71d2ba2..6af627f
+Fast-forward
+ ff-merge-demo.txt | 2 ++
+ 1 file changed, 2 insertions(+)

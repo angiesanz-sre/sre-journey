@@ -1,0 +1,111 @@
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git init
+Initialized empty Git repository in /Users/angelicasanztrujillo/dev/sre-journey/labs/katas/no-ff-merge-kata/.git/
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git checkout -b master
+Switched to a new branch 'master'
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git log --online
+fatal: your current branch 'master' does not have any commits yet
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % vi no-ff-merge.txt 
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git add no-ff-merge.txt
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git commit -m "Initial commit for no fast forward merge kata"
+[master (root-commit) a757171] Initial commit for no fast forward merge kata
+ 1 file changed, 1 insertion(+)
+ create mode 100644 no-ff-merge.txt
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git checkout -b new_branch_for_no_ff
+Switched to a new branch 'new_branch_for_no_ff'
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % vi no-ff-merge.txt                                      
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git add no-ff-merge.txt
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git commit -m "Second commit for no fast forward merge"
+[new_branch_for_no_ff 5461d76] Second commit for no fast forward merge
+ 1 file changed, 2 insertions(+)
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git checkout master
+Switched to branch 'master'
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % vi no-ff-merge.txt
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git add no-ff-merge.txt
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git commit -m "Third commit for no fast forward merge"
+[master 41f9943] Third commit for no fast forward merge
+ 1 file changed, 2 insertions(+)
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git merge new_branch_for_no_ff -m "Merge new_branch_for_no_ff into master"
+Auto-merging no-ff-merge.txt
+CONFLICT (content): Merge conflict in no-ff-merge.txt
+Automatic merge failed; fix conflicts and then commit the result.
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % vi no-ff-merge.txt
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git add no-ff-merge.txt
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git commit -m "Resolved conflicts and commit again"
+[master 728f349] Resolved conflicts and commit again
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git log --oneline
+728f349 (HEAD -> master) Resolved conflicts and commit again
+41f9943 Third commit for no fast forward merge
+5461d76 (new_branch_for_no_ff) Second commit for no fast forward merge
+a757171 Initial commit for no fast forward merge kata
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git branch
+* master
+  new_branch_for_no_ff
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git add no-ff-merge.txt                                                   
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % vi no-ff-merge.txt                                                        
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git add no-ff-merge.txt
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git commit -m "Initial merge for the second kata"
+[master 61ca8cd] Initial merge for the second kata
+ 1 file changed, 3 insertions(+)
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git checkout -b another_new_branch_for_no_ff
+Switched to a new branch 'another_new_branch_for_no_ff'
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % vi no-ff-merge.txt                          
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git add no-ff-merge.txt
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git commit -m "Second merge for the second kata"
+[another_new_branch_for_no_ff c1da443] Second merge for the second kata
+ 1 file changed, 2 insertions(+)
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git checkout master
+Switched to branch 'master'
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % vi no-ff-merge.txt                         
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git add no-ff-merge.txt
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git commit -m "Third merge for the second kata"
+[master 04e7645] Third merge for the second kata
+ 1 file changed, 2 insertions(+)
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git merge another_new_branch_for_no_ff -m "Another no fast forward merge for kata number 2"
+Merge made by the 'ort' strategy.
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git merge another_new_branch_for_no_ff -m "Another no fast forward merge for kata number 2"
+Already up to date.
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git checkout master
+Already on 'master'
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % vi no-ff-merge.txt
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git add no-ff-merge.txt
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git commit -m "Fourth merge for the third cata"
+[master 992370e] Fourth merge for the third cata
+ 1 file changed, 2 insertions(+)
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git checkout -b yet_another_new_branch_for_no_ff
+Switched to a new branch 'yet_another_new_branch_for_no_ff'
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % vi no-ff-merge.txt                         
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git add no-ff-merge.txt
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git commit -m "Fifth merge for the third kata"
+[yet_another_new_branch_for_no_ff c5e4987] Fifth merge for the third kata
+ 1 file changed, 3 insertions(+)
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git checkout master
+Switched to branch 'master'
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % vi no-ff-merge.txt                       
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git add no-ff-merge.txt
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git commit -m "Sixth commit for the third kata"
+[master 61a55f1] Sixth commit for the third kata
+ 1 file changed, 2 insertions(+)
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git merge yet_another_new_branch_for_no_ff
+Auto-merging no-ff-merge.txt
+CONFLICT (content): Merge conflict in no-ff-merge.txt
+Automatic merge failed; fix conflicts and then commit the result.
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % vi no-ff-merge.txt
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git add no-ff-merge.txt                   
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git commit -m "Conflict resolved" 
+[master 0ba6bf4] Conflict resolved
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git merge yet_another_new_branch_for_no_ff -m "merging yet_another_new_branch_for_no_ff into master"
+Already up to date.
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % git log --oneline
+0ba6bf4 (HEAD -> master) Conflict resolved
+61a55f1 Sixth commit for the third kata
+c5e4987 (yet_another_new_branch_for_no_ff) Fifth merge for the third kata
+992370e Fourth merge for the third cata
+378d204 Another no fast forward merge for kata number 2
+04e7645 Third merge for the second kata
+c1da443 (another_new_branch_for_no_ff) Second merge for the second kata
+61ca8cd Initial merge for the second kata
+728f349 Resolved conflicts and commit again
+41f9943 Third commit for no fast forward merge
+5461d76 (new_branch_for_no_ff) Second commit for no fast forward merge
+a757171 Initial commit for no fast forward merge kata
+angelicasanztrujillo@MacBookPro no-ff-merge-kata % 
