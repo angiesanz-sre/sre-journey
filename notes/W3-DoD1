@@ -1,0 +1,47 @@
+Theory to review:
+
+UID / GID
+
+UID refers to user ID number.
+GID refers to group ID number. 
+
+These are used to tell Lunx who is the owner of a file and what group it belongs to.
+
+Unmask: 
+A permissions filter that instead of adding permissions, it removed them. It's a value that you substract from the Linux default permissions to grant only the permissions you want to grant.
+
+setuid allows you to run a program as the owner. So it temporarily lets you get the permissions of the file owner. 
+setgid Allows you to run the program as the files group, of if you set it on a directory, all files inside the directory get the same group, so they have group permissions.
+
+inode vs. path:
+inode is where file permissions, owner (UID) and group (GID), size, timestamp and location of the file live. So it's all the metadata that is connected to a file. 
+path is the actual path that points to the inode (the file).
+
+mounts & fstab:
+To mount is to temporarily attach a device like a disk or a USB to a folder so you can see it and use it. 
+fstab stores a list of devices that should be mounted when the system starts. 
+
+Self-questions:
+What is umask?
+It’s the default rule that removes permissions from new files. Example: umask 022 removes “write” for group/others.
+
+How do hard links work?
+A hard link is just another path that points to the same inode, in other words, the same file. If you delete the initial file, the hard link will still work.
+A soft link is just like a shortcut that points to the path where the file is, but not to the actual file. So if the file is deleted, the link doesn't work.
+
+What does setuid do?
+It allows you to run a program as the file’s owner instead of you. For example,  passwd runs as root to change passwords.
+
+How to find large files?
+Use du or find:
+
+du -ah / | sort -h | tail
+# or
+find / -type f -size +100M
+
+
+How to mount a device persistently?
+Add it to /etc/fstab with device, mount point, type, and options. This will make it to mount automatically on reboot. For example:
+
+/dev/sdb1   /data   ext4   defaults   0 2
+
