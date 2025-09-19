@@ -1,0 +1,68 @@
+chmod, chgrp, and chown
+
+angelicasanztrujillo@MacBookPro labs % mkdir kata-perms
+angelicasanztrujillo@MacBookPro labs % cd kata-perms
+angelicasanztrujillo@MacBookPro kata-perms % vi script.sh
+angelicasanztrujillo@MacBookPro kata-perms % ls
+script.sh
+angelicasanztrujillo@MacBookPro kata-perms % ls -l
+total 8
+-rw-r--r--  1 angelicasanztrujillo  staff  34 Sep 19 13:43 script.sh
+angelicasanztrujillo@MacBookPro kata-perms % chmod +x script.sh
+angelicasanztrujillo@MacBookPro kata-perms % echo "Adding an x will make it executable for everyone"
+Adding an x will make it executable for everyone
+angelicasanztrujillo@MacBookPro kata-perms % ./script.sh
+This is a sample of chmod
+angelicasanztrujillo@MacBookPro kata-perms % cd ..
+angelicasanztrujillo@MacBookPro labs % cd kata-perms
+angelicasanztrujillo@MacBookPro kata-perms % id -Gn
+staff everyone localaccounts _appserverusr admin _appserveradm _lpadmin com.apple.sharepoint.group.1 _appstore _lpoperator _developer _analyticsusers com.apple.access_ftp com.apple.access_screensharing com.apple.access_ssh com.apple.access_remote_ae
+angelicasanztrujillo@MacBookPro kata-perms % ls -l script.sh
+-rwxr-xr-x  1 angelicasanztrujillo  staff  34 Sep 19 13:43 script.sh
+angelicasanztrujillo@MacBookPro kata-perms % echo "This file is on the staff group"
+This file is on the staff group
+angelicasanztrujillo@MacBookPro kata-perms % chgrp localaccounts script.sh
+angelicasanztrujillo@MacBookPro kata-perms % ls -l
+total 8
+-rwxr-xr-x  1 angelicasanztrujillo  localaccounts  34 Sep 19 13:43 script.sh
+angelicasanztrujillo@MacBookPro kata-perms % Echo "Changed the file from the staff group to the localaccounts group"
+Changed the file from the staff group to the localaccounts group
+angelicasanztrujillo@MacBookPro kata-perms % sudo chown root script.sh
+Password:
+angelicasanztrujillo@MacBookPro kata-perms % ls -l
+total 8
+-rwxr-xr-x  1 root  localaccounts  34 Sep 19 13:43 script.sh
+angelicasanztrujillo@MacBookPro kata-perms % echo "This changed the owner of the file script.sh to root"
+This changed the owner of the file script.sh to root
+angelicasanztrujillo@MacBookPro kata-perms % sudo chown angelicasanztrujillo script.sh
+angelicasanztrujillo@MacBookPro kata-perms % ls -l
+total 8
+-rwxr-xr-x  1 angelicasanztrujillo  localaccounts  34 Sep 19 13:43 script.sh
+angelicasanztrujillo@MacBookPro kata-perms % echo "This changed it back to me"
+This changed it back to me
+angelicasanztrujillo@MacBookPro kata-perms % chgrp staff script.sh
+angelicasanztrujillo@MacBookPro kata-perms % echo "this also changed the group back to staff"
+this also changed the group back to staff
+angelicasanztrujillo@MacBookPro kata-perms % ls -l
+total 8
+-rwxr-xr-x  1 angelicasanztrujillo  staff  34 Sep 19 13:43 script.sh
+angelicasanztrujillo@MacBookPro kata-perms %
+
+______________________________________________________________________________
+
+Explain setgid
+
+angelicasanztrujillo@MacBookPro kata-perms % mkdir shared
+angelicasanztrujillo@MacBookPro kata-perms % ls -l
+total 8
+-rwxr-xr-x  1 angelicasanztrujillo  staff  34 Sep 19 13:43 script.sh
+drwxr-xr-x  2 angelicasanztrujillo  staff  64 Sep 19 13:53 shared
+angelicasanztrujillo@MacBookPro kata-perms % chmod g+s shared
+angelicasanztrujillo@MacBookPro kata-perms % ls -l
+total 8
+-rwxr-xr-x  1 angelicasanztrujillo  staff  34 Sep 19 13:43 script.sh
+drwxr-sr-x  2 angelicasanztrujillo  staff  64 Sep 19 13:53 shared
+angelicasanztrujillo@MacBookPro kata-perms % echo "Now there is an s in the group execute which means that this folder has setgid set up, so anything created under that directory will inherit the directory's group. In this case staff."
+Now there is an s in the group execute which means that this folder has setgid set up, so anything created under that directory will inherit the directory's group. In this case staff.
+angelicasanztrujillo@MacBookPro kata-perms % 
+
