@@ -1,0 +1,34 @@
+Theory to review
+
+fork/exec:
+When linux runs a program, the parent process creates a child process with fork and then the child process replaces itself with the new program with exec. The parent process then waits until the child process is finished and keeps running. For example, the shell is a process. When you run a command like ls, the shell does fork (creates a child process which is a copy of itself) then the child process calls to execute (exec ls) and it replaces itself with the ls process. when the child process is done, the parent process which is the shell gives you the prompt back.
+
+signals:
+A signal is like a text message that the system sends to a program telling it what to do. For example the SIGTERM signal tells the program to stop. The SIGKILL signal tells the program to stop immediately.
+
+systemd units:
+configuration files that tell systemd how to manage something, like a service, a timer, or a mount. For example, cron.service runs the scheduler for cron jobs, logrotate.timer rotates logs daily.
+
+journald:
+Is where linux collects information about everything that happened with services, the kernel or system, like errors, warnings, info, etc.
+
+CPU/memory tools:
+Tools that help you see how the system is working. For example: top and htop show CPU and memory use, but htop makes it colorcoded. free -h shows memory usage. uptime shows the time, how many users are logged in to the system, how long has it been running and how busy the CPU has been.
+
+Self Questions:
+How to find a process by port?
+Use the command lsof (list open files). For example: lsof -i :PORT will show processes by port. 
+
+What is a zombie process?
+A process that is dead (is done running) but the parent process hasn't cleared up yet. 
+
+Unit vs service file?
+A unit file is a configuration file used by systemd for instructions on how to manage something like a service, a timer, a mount or a target. 
+A service file is a unit file that tells systemd how to start, stop and manage a program that runs in the background. It always ends with .servrice, for example: cron.service.
+
+How to follow journal logs?
+Use the command journalctl -f, which the -f options is to show the logs as they are being written.
+
+How to kill by signal gracefully?
+Use command kill -15 <PID> to kill a program gracefully. Then if it doesn't stop you can use kill -9 <PID> to force it to shut down. PID means process ID.
+
