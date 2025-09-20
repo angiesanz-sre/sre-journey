@@ -1,0 +1,22 @@
+How to troubleshoot system problems:
+
+1. Use top or htop to see CPU and memory usage.
+With top you can sort by memory by pressing capital M, or by CPU by pressing P. This will show you the processes running and how much CPU and memory they are consuming.
+Press q to quit. 
+
+2. If you see any zombie processes or any processes that may be overwhelming the system you can kill them (stop them) using kill -15 <PID> or if that doesn't work, use kill -9 <PID> to force it to quit. 
+
+3. Use systemctl to start or stop services or to check the status of services. For example:
+systemctl status splunk will check if Splunk is running.
+systemctl stop Splunk will stop Splunk.
+systemctl restart Splunk will restart Splunk.
+systemctl start Splunk will start Splunk. 
+
+4. Use journalctl to review system logs for any warnings or errors. 
+You can use journalctl to show all logs.
+You can use journalctl -f to follow the logs as they are written.
+You can use journalctl -u splunk to show logs for a service.
+
+5. Use free -h to see memory usage. 
+
+
