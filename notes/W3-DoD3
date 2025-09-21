@@ -1,0 +1,33 @@
+Theory to review
+
+Sockets:
+Sockets are special files in the kernel with information like IP address, port number and protocol (like TCP, UDP, etc) that programs use for communication. So for exaple when a machine wants to communicate with another one, the machine that wants to communicate creates a socket containing its IP address, port number and protocol. Then the machine that it is trying to connect with already have a socket that is listening on the specific port. Then the machine you are trying to connect accepts the connection and creates a new socket for the connection that specifies the ip, port and protocol and where they will send responses too.
+
+Routing table:
+The routing table is a list of rules that tells your computer where to send network packets (data). For example, after the connection is made through the sockets, and before any packets (data) leaves the first point of connection, Linux checks the routing table to see how it will send the packet from point A to point B, for exammple send it directly if in the local network or through a gateway if through the internet. Once Linux checks, it sends the package through the socket to the listening socket.
+ 
+DNS resolution:
+DNS means Domain Name System. DNS resolution is the process of converting the name of an endpoint (for example google) into an IP address. So, when you enter google in your browser, your computer asks the DNS server, what IP belongs to this name?, and the DNS service finds the IP address and now your computer can open a socket connection to that IP address.
+
+TCP three-way handshake:
+TCP means Transmission Control Protocol and it's the protocol mainly use by computers to send data over the internet and make sure that all the packets arrive correctly. Three-way handshake happens before two computers can talk via TCP, they both need to agree to connect. To the first machine will create a socket saying that it wants to connect, then the second machine will have a listening socket. Then before sending any packets, Linux will check the routing table to see how to send the packets from point A to point B. Once that is figured out, the three-way handshake starts. So the first machine sends a SYN packet signal to the machine like asking if the other machine wants to connect. The other machine sens a SYN-ACK packet signal like saying, yes, let's connect, here's my info, and the first machine then sends an ACK packet signal like saying, okay, we're ready to connect. That is the three-way handshake. 
+
+tcpdump filters:
+tcpdump is a command you use to watch network traffice. tcpdump filers are options to use with the command tcpdump to filter the results of the tcpdump output and focus on things that you need to see. For example, if you use tcpdump port 80, you will see all the results for http traffic on port 80. If you use tcpdump host 8.8.8.8 you will only see packets going to and from IP 8.8.8.8.
+
+Five self-questions
+
+What does SYN mean?
+SYN means sinchronize. It's the first packet signal in the TCP three-way handshake to start a connection with another machine. The other two are SYN-ACK and ACK.
+
+What is TIME_WAIT?
+It's a short time that the system waits after closing a TCP connection to make sure late packets don't get mixed up with new connections. 
+
+How to see listening sockets? 
+You can see listening sockets using: ss-tuln which will show all the sockets that are listening for connections. 
+
+How to change default route? 
+sudo ip route change default via <gateway_ip>. This tells Linux to send traffic through a new gateway via the new gateway's IP address. 
+
+How to resolve DNS with dig?
+dig google.com will ask the DNS service what ip address match google.com. 

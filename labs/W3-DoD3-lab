@@ -1,0 +1,22 @@
+angelicasanztrujillo@MacBookPro sre-journey % sudo tcpdump port 80
+Password:
+tcpdump: data link type PKTAP
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on pktap, link-type PKTAP (Apple DLT_PKTAP), snapshot length 524288 bytes
+12:49:25.918759 IP macbookpro.attlocal.net.55863 > ym-in-f113.1e100.net.http: Flags [S], seq 3679392010, win 65535, options [mss 1460,nop,wscale 6,nop,nop,TS val 662502265 ecr 0,sackOK,eol], length 0
+12:49:25.971866 IP ym-in-f113.1e100.net.http > macbookpro.attlocal.net.55863: Flags [S.], seq 4261845618, ack 3679392011, win 65535, options [mss 1412,sackOK,TS val 2384756297 ecr 662502265,nop,wscale 8], length 0
+12:49:25.972043 IP macbookpro.attlocal.net.55863 > ym-in-f113.1e100.net.http: Flags [.], ack 1, win 2057, options [nop,nop,TS val 662502318 ecr 2384756297], length 0
+12:49:25.973369 IP macbookpro.attlocal.net.55863 > ym-in-f113.1e100.net.http: Flags [P.], seq 1:74, ack 1, win 2057, options [nop,nop,TS val 662502319 ecr 2384756297], length 73: HTTP: GET / HTTP/1.1
+12:49:26.076974 IP ym-in-f113.1e100.net.http > macbookpro.attlocal.net.55863: Flags [.], ack 74, win 1050, options [nop,nop,TS val 2384756356 ecr 662502319], length 0
+12:49:26.076976 IP ym-in-f113.1e100.net.http > macbookpro.attlocal.net.55863: Flags [P.], seq 1:774, ack 74, win 1050, options [nop,nop,TS val 2384756370 ecr 662502319], length 773: HTTP: HTTP/1.1 301 Moved Permanently
+12:49:26.077227 IP macbookpro.attlocal.net.55863 > ym-in-f113.1e100.net.http: Flags [.], ack 774, win 2045, options [nop,nop,TS val 662502423 ecr 2384756370], length 0
+12:49:26.078511 IP macbookpro.attlocal.net.55863 > ym-in-f113.1e100.net.http: Flags [F.], seq 74, ack 774, win 2048, options [nop,nop,TS val 662502424 ecr 2384756370], length 0
+12:49:26.130936 IP ym-in-f113.1e100.net.http > macbookpro.attlocal.net.55863: Flags [F.], seq 774, ack 75, win 1050, options [nop,nop,TS val 2384756456 ecr 662502424], length 0
+12:49:26.131156 IP macbookpro.attlocal.net.55863 > ym-in-f113.1e100.net.http: Flags [.], ack 775, win 2048, options [nop,nop,TS val 662502477 ecr 2384756456], length 0
+^C
+10 packets captured
+1358 packets received by filter
+0 packets dropped by kernel
+angelicasanztrujillo@MacBookPro sre-journey % echo "The first three lines are the three-way handshake between my machine and google. Google accepts the connection. The forth line is the HTTP get request I made in the other terminal. Line 5 is the server ack my request and line 6 is saying "moved permanently" which is telling you to use port 443 (https) instead. And the last few lines is the the server and my machine saying that they are done sending data and closing the connection." 
+The first three lines are the three-way handshake between my machine and google. Google accepts the connection. The forth line is the HTTP get request I made in the other terminal. Line 5 is the server ack my request and line 6 is saying moved permanently which is telling you to use port 443 (https) instead. And the last few lines is the the server and my machine saying that they are done sending data and closing the connection.
+angelicasanztrujillo@MacBookPro sre-journey % 
