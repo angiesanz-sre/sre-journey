@@ -19,4 +19,140 @@ listening on pktap, link-type PKTAP (Apple DLT_PKTAP), snapshot length 524288 by
 0 packets dropped by kernel
 angelicasanztrujillo@MacBookPro sre-journey % echo "The first three lines are the three-way handshake between my machine and google. Google accepts the connection. The forth line is the HTTP get request I made in the other terminal. Line 5 is the server ack my request and line 6 is saying "moved permanently" which is telling you to use port 443 (https) instead. And the last few lines is the the server and my machine saying that they are done sending data and closing the connection." 
 The first three lines are the three-way handshake between my machine and google. Google accepts the connection. The forth line is the HTTP get request I made in the other terminal. Line 5 is the server ack my request and line 6 is saying moved permanently which is telling you to use port 443 (https) instead. And the last few lines is the the server and my machine saying that they are done sending data and closing the connection.
-angelicasanztrujillo@MacBookPro sre-journey % 
+angelicasanztrujillo@MacBookPro sre-journey %
+angelicasanztrujillo@MacBookPro labs % ipconfig getifaddr en0
+192.168.1.120
+angelicasanztrujillo@MacBookPro labs % echo "this shows your machine's IP address"
+this shows your machine's IP address
+angelicasanztrujillo@MacBookPro labs % route -n get default    
+   route to: default
+destination: default
+       mask: default
+    gateway: 192.168.1.254
+  interface: en0
+      flags: <UP,GATEWAY,DONE,STATIC,PRCLONING,GLOBAL>
+ recvpipe  sendpipe  ssthresh  rtt,msec    rttvar  hopcount      mtu     expire
+       0         0         0         0         0         0      1500         0 
+angelicasanztrujillo@MacBookPro labs % echo "This shows your default gateway" 
+This shows your default gateway
+angelicasanztrujillo@MacBookPro labs % scutil --dns | grep 'nameserver'
+  nameserver[0] : 192.168.1.254
+  nameserver[0] : 192.168.1.254
+angelicasanztrujillo@MacBookPro labs % echo "this shows your DNS serves"
+this shows your DNS serves
+angelicasanztrujillo@MacBookPro labs % ping -c 4 192.168.1.120
+PING 192.168.1.120 (192.168.1.120): 56 data bytes
+64 bytes from 192.168.1.120: icmp_seq=0 ttl=64 time=0.144 ms
+64 bytes from 192.168.1.120: icmp_seq=1 ttl=64 time=0.269 ms
+64 bytes from 192.168.1.120: icmp_seq=2 ttl=64 time=0.281 ms
+64 bytes from 192.168.1.120: icmp_seq=3 ttl=64 time=0.280 ms
+
+--- 192.168.1.120 ping statistics ---
+4 packets transmitted, 4 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 0.144/0.244/0.281/0.058 ms
+angelicasanztrujillo@MacBookPro labs % 
+angelicasanztrujillo@MacBookPro labs % ping -c 4 8.8.8.8
+PING 8.8.8.8 (8.8.8.8): 56 data bytes
+64 bytes from 8.8.8.8: icmp_seq=0 ttl=116 time=20.904 ms
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=116 time=23.130 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=116 time=27.171 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=116 time=17.999 ms
+
+--- 8.8.8.8 ping statistics ---
+4 packets transmitted, 4 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 17.999/22.301/27.171/3.349 ms
+angelicasanztrujillo@MacBookPro labs % nslookup google.com
+Server:		192.168.1.254
+Address:	192.168.1.254#53
+
+Non-authoritative answer:
+Name:	google.com
+Address: 64.233.185.113
+Name:	google.com
+Address: 64.233.185.138
+Name:	google.com
+Address: 64.233.185.102
+Name:	google.com
+Address: 64.233.185.101
+Name:	google.com
+Address: 64.233.185.100
+Name:	google.com
+Address: 64.233.185.139
+
+angelicasanztrujillo@MacBookPro labs % curl -I http://google.com 
+HTTP/1.1 301 Moved Permanently
+Location: http://www.google.com/
+Content-Type: text/html; charset=UTF-8
+Content-Security-Policy-Report-Only: object-src 'none';base-uri 'self';script-src 'nonce-NKoMfGu1CnBSlcu9hnzgyw' 'strict-dynamic' 'report-sample' 'unsafe-eval' 'unsafe-inline' https: http:;report-uri https://csp.withgoogle.com/csp/gws/other-hp
+Date: Tue, 23 Sep 2025 19:08:38 GMT
+Expires: Thu, 23 Oct 2025 19:08:38 GMT
+Cache-Control: public, max-age=2592000
+Server: gws
+Content-Length: 219
+X-XSS-Protection: 0
+X-Frame-Options: SAMEORIGIN
+
+angelicasanztrujillo@MacBookPro labs % traceroute google.com
+traceroute: Warning: google.com has multiple addresses; using 64.233.185.113
+traceroute to google.com (64.233.185.113), 64 hops max, 40 byte packets
+ 1  dsldevice (192.168.1.254)  11.821 ms  4.941 ms  4.322 ms
+ 2  108-244-24-1.lightspeed.irvnca.sbcglobal.net (108.244.24.1)  6.019 ms  5.756 ms  4.967 ms
+ 3  64.148.105.42 (64.148.105.42)  5.162 ms  5.937 ms  5.612 ms
+ 4  12.242.115.21 (12.242.115.21)  9.507 ms  8.980 ms  8.216 ms
+ 5  12.255.10.174 (12.255.10.174)  8.328 ms  7.952 ms  10.249 ms
+ 6  * * *
+ 7  142.250.226.108 (142.250.226.108)  28.328 ms
+    142.251.60.96 (142.251.60.96)  23.857 ms
+    108.170.230.136 (108.170.230.136)  22.063 ms
+ 8  108.170.252.108 (108.170.252.108)  37.598 ms
+    142.250.208.114 (142.250.208.114)  28.757 ms  10.163 ms
+ 9  * * 108.170.234.124 (108.170.234.124)  29.948 ms
+10  108.170.231.152 (108.170.231.152)  51.909 ms *
+    192.178.96.169 (192.178.96.169)  38.951 ms
+11  172.253.66.235 (172.253.66.235)  54.545 ms
+    142.251.70.211 (142.251.70.211)  53.438 ms
+    108.170.229.87 (108.170.229.87)  53.376 ms
+12  142.251.241.232 (142.251.241.232)  68.035 ms  54.269 ms  54.671 ms
+13  216.239.62.147 (216.239.62.147)  66.054 ms  53.253 ms
+    142.251.51.110 (142.251.51.110)  67.618 ms
+14  216.239.56.23 (216.239.56.23)  69.230 ms
+    216.239.47.117 (216.239.47.117)  81.557 ms
+    216.239.47.67 (216.239.47.67)  68.220 ms
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  *^C
+angelicasanztrujillo@MacBookPro labs % echo "the previous are katas to diagnose dns issues"
+the previous are katas to diagnose dns issues
+angelicasanztrujillo@MacBookPro labs % sudo lsof -i -P -n | grep LISTEN
+Password:
+remoted    110                 root    6u  IPv6 0xf82e50c14b0f43b3      0t0    TCP [fe80:4::aede:48ff:fe00:1122]:49153 (LISTEN)
+remoted    110                 root    7u  IPv6 0x7f4e7557f3b29b82      0t0    TCP [fe80:4::aede:48ff:fe00:1122]:49154 (LISTEN)
+remoted    110                 root    8u  IPv6 0x1ecc4aca63d4ae24      0t0    TCP [fe80:4::aede:48ff:fe00:1122]:49155 (LISTEN)
+remoted    110                 root    9u  IPv6 0xdc375854dfcb4535      0t0    TCP [fe80:4::aede:48ff:fe00:1122]:49156 (LISTEN)
+remoted    110                 root   10u  IPv6 0x35816394bd96e845      0t0    TCP [fe80:4::aede:48ff:fe00:1122]:49157 (LISTEN)
+remoted    110                 root   11u  IPv6 0x824714ed51d735cc      0t0    TCP [fe80:4::aede:48ff:fe00:1122]:49158 (LISTEN)
+remoted    110                 root   12u  IPv6  0x11d2209329d17a3      0t0    TCP [fe80:4::aede:48ff:fe00:1122]:49159 (LISTEN)
+remoted    110                 root   13u  IPv6 0xceff0d76ead537e2      0t0    TCP [fe80:4::aede:48ff:fe00:1122]:49160 (LISTEN)
+remoted    110                 root   14u  IPv6 0x3b037a85e8d7a604      0t0    TCP [fe80:4::aede:48ff:fe00:1122]:49161 (LISTEN)
+remoted    110                 root   15u  IPv6 0x6196a205f234b87b      0t0    TCP [fe80:4::aede:48ff:fe00:1122]:49162 (LISTEN)
+remoted    110                 root   16u  IPv6 0x7b213af9be6f2f12      0t0    TCP [fe80:4::aede:48ff:fe00:1122]:49163 (LISTEN)
+remoted    110                 root   17u  IPv6 0x62c415250ad9a91d      0t0    TCP [fe80:4::aede:48ff:fe00:1122]:49164 (LISTEN)
+remoted    110                 root   18u  IPv6 0x18804fa009d53d7d      0t0    TCP [fe80:4::aede:48ff:fe00:1122]:49165 (LISTEN)
+remoted    110                 root   19u  IPv6 0x8face7fd3421231a      0t0    TCP [fe80:4::aede:48ff:fe00:1122]:49166 (LISTEN)
+symptomsd  212            _networkd    4u  IPv6 0xeebaacee7cc2cf67      0t0    TCP *:59236 (LISTEN)
+OneDrive  1548 angelicasanztrujillo   29u  IPv6 0xd6465862708264e5      0t0    TCP [::1]:42050 (LISTEN)
+ControlCe 1754 angelicasanztrujillo    8u  IPv4 0x65061bb397ea674f      0t0    TCP *:7000 (LISTEN)
+ControlCe 1754 angelicasanztrujillo    9u  IPv6 0xc3918ae755fd31f5      0t0    TCP *:7000 (LISTEN)
+ControlCe 1754 angelicasanztrujillo   10u  IPv4 0xaf9f54f5b44c2ffe      0t0    TCP *:5000 (LISTEN)
+ControlCe 1754 angelicasanztrujillo   11u  IPv6 0x33962ad1829cf438      0t0    TCP *:5000 (LISTEN)
+rapportd  1769 angelicasanztrujillo   10u  IPv4 0x9df346172c6a0031      0t0    TCP *:53271 (LISTEN)
+rapportd  1769 angelicasanztrujillo   11u  IPv6 0xa8a8bbc1de9bbc46      0t0    TCP *:53271 (LISTEN)
+nc        4971 angelicasanztrujillo    3u  IPv4 0x816b461e6ca04ce3      0t0    TCP *:49165 (LISTEN)
+angelicasanztrujillo@MacBookPro labs % echo "this shows all the ports open and listening"
+this shows all the ports open and listening
+angelicasanztrujillo@MacBookPro labs %  
