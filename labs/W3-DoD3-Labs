@@ -1,0 +1,49 @@
+
+angelicasanztrujillo@MacBookPro sre-journey % echo "This is a kata to understand fork/exec"
+This is a kata to understand fork/exec
+angelicasanztrujillo@MacBookPro sre-journey % echo "Shell PID is $$"
+Shell PID is 1930
+angelicasanztrujillo@MacBookPro sre-journey % echo "This is the parent process"
+This is the parent process
+angelicasanztrujillo@MacBookPro sre-journey % sleep 120 &
+[1] 3070
+angelicasanztrujillo@MacBookPro sre-journey % echo "this will start a process in the background"
+this will start a process in the background
+angelicasanztrujillo@MacBookPro sre-journey % bgpid=$!
+angelicasanztrujillo@MacBookPro sre-journey % echo "Background PID is $bgpid"
+Background PID is 3070
+angelicasanztrujillo@MacBookPro sre-journey % echo "This is the child process"
+This is the child process
+angelicasanztrujillo@MacBookPro sre-journey % ps -o pid,ppid,stat,comm -p "$bgpid"
+  PID  PPID STAT COMM
+ 3070  1930 SN   sleep
+angelicasanztrujillo@MacBookPro sre-journey % wait "$bgpid"
+[1]  + done       sleep 120
+angelicasanztrujillo@MacBookPro sre-journey % echo "Child finished"        
+Child finished
+angelicasanztrujillo@MacBookPro sre-journey % sleep 120 &                                                          
+[1] 3084
+angelicasanztrujillo@MacBookPro sre-journey % echo $!
+3084
+angelicasanztrujillo@MacBookPro sre-journey % ps
+  PID TTY           TIME CMD
+ 1930 ttys001    0:00.12 -zsh
+ 3084 ttys001    0:00.01 sleep 120
+angelicasanztrujillo@MacBookPro sre-journey % kill -15 3084 
+[1]  + terminated  sleep 120                                                                                                                                                                              
+angelicasanztrujillo@MacBookPro sre-journey % ps
+  PID TTY           TIME CMD
+ 1930 ttys001    0:00.13 -zsh
+angelicasanztrujillo@MacBookPro sre-journey % sleep 120 &
+[1] 3090
+angelicasanztrujillo@MacBookPro sre-journey % ps
+  PID TTY           TIME CMD
+ 1930 ttys001    0:00.14 -zsh
+ 3090 ttys001    0:00.01 sleep 120
+angelicasanztrujillo@MacBookPro sre-journey % kill -9 3090 
+[1]  + killed     sleep 120                                                                                                                                                                               
+angelicasanztrujillo@MacBookPro sre-journey % ps
+  PID TTY           TIME CMD
+ 1930 ttys001    0:00.14 -zsh
+__________________________________________________________________________
+
