@@ -1,0 +1,19 @@
+Shellcheck usage:
+
+angelicasanztrujillo@MacBookPro labs % shellcheck /Users/angelicasanztrujillo/dev/sre-journey/W04_midpoint_bundle/scripts/log_rotator.sh
+
+In /Users/angelicasanztrujillo/dev/sre-journey/W04_midpoint_bundle/scripts/log_rotator.sh line 13:
+  ls -1t "${f}."*.gz 2>/dev/null | tail -n +$((KEEP+1)) | xargs -r rm -f
+  ^----------------------------^ SC2012 (info): Use find instead of ls to better handle non-alphanumeric filenames.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2012 -- Use find instead of ls to better ...
+angelicasanztrujillo@MacBookPro labs % 
+
+angelicasanztrujillo@MacBookPro labs % shellcheck /Users/angelicasanztrujillo/dev/sre-journey/W04_midpoint_bundle/scripts/backup.sh
+angelicasanztrujillo@MacBookPro labs % shellcheck /Users/angelicasanztrujillo/dev/sre-journey/W04_midpoint_bundle/scripts/healthcheck.sh
+angelicasanztrujillo@MacBookPro labs %    
+
+
+
+
