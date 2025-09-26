@@ -1,0 +1,49 @@
+Theory to review:
+
+Shebang:
+Is the very first line on a script that tells the computer which program to use to read and run the script.
+
+set -euo pipefail:
+This is also another line, usually right after shebang, that tells Bash what to do when there are problems with the cript. For example:
+option -e means to exit if something goes wrong with the script.
+-u means if a variable is not set, don't assume it's empty, just throw an error or exit out of the cript.
+-o pipefail means if there are pipelines and one of the commands fail, then the whole pipeline fails.
+So all together, set -euo pipefail means exit if something goes wrong, error out if there are variables undefined, and if something in a pipeline failes, then the whole thing should fail too.
+
+Functions:
+A function is like a mini script inside a big script. It is basically a block of code that you can set up with a name and then later on call it by its name rathen than having to re-write all the code again. 
+
+getopts:
+This is a tool inside Bash that helps scripts understand the flags or options you set up when the script is run. So for example:
+./myscript.sh -u Angelica -p 1234 so inside myscript there is a stanza with getopts that defines what -u and -p mean. In this case, -u is for user, and -p is for password. 
+
+stderr/stdout Redirection:
+stdout means standard output, which is the output that is expected when running a command. For example, the command ls, the stdout is a list of files. 
+stderr means standard error, which is the error message when the command can't be ran. For example, ls nofile.txt, if file nofile exists, will say "No such file or directory."
+Both commands print on the screen. But with redirection, you can send the outputs to a file. 
+To redirect stdout you can use the symbol >. For example: ls > file.txt
+To redirect stderr you can use the symbols 2>. For example: ls 2> errors.txt
+To redirect both, stdout and stderr, you can use &>. For example: ls &> output.txt.
+
+Self Questions
+
+What does set -e do?
+It makes the script stop immediately if any command fails.
+
+How to parse flags with getopts?
+You have to define the flags inside getopts (like u:p:) and then use $OPTARG to set their values.
+
+How to capture exit code?
+Use $? right after a command — it stores the command’s exit status (0 = success, not 0 = error).
+
+When to quote variables?
+You have to quote variable ("$var") the variable has special characters, spaces, or empty strings so the variable can be treated as a whole piece. As a rule, you should always quote variables, unless you have a specific reason not to.
+
+How to write a here-doc?
+A here-doc lets you write a block of text into a script to feed it to a command without having to write a lot of echos or a file. For example: 
+cat <<-EOF
+    This is an example
+of here-doc.
+EOF
+
+
