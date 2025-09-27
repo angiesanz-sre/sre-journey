@@ -1,0 +1,55 @@
+Theory to review:
+
+Exit codes:
+An exit code is the number a command gives back after it runs. 0 means it worked fine, and anything else means there was an error. You can check by typing $? right after running the command. Example:
+angelicasanztrujillo@MacBookPro labs % $?
+zsh: command not found: 0
+angelicasanztrujillo@MacBookPro labs % ls
+ff-merge-lab-evidence		kata-branch			kata-rebase			W1-DoD2-labs			W2-DoD3-labs			W3-DoD3-Labs
+git-ff-lab			kata-branch-lab-evidence	kata-revert			W1-DoD3-labs			W3-DoD1-labs			W4-DoD1-Labs
+git-no-ff-lab			kata-cherry			katas				W2-DoD1-labs			W3-DoD2-labs
+kata-bisect			kata-perms			no-ff-merge-kata-evidence	W2-DoD2-labs			W3-DoD3-lab
+  [Bookmarked Sep 26, 2025 at 6:06:24 PM]
+angelicasanztrujillo@MacBookPro labs % echo $?
+0
+angelicasanztrujillo@MacBookPro labs % sudo 
+usage: sudo -h | -K | -k | -V
+usage: sudo -v [-ABkNnS] [-g group] [-h host] [-p prompt] [-u user]
+usage: sudo -l [-ABkNnS] [-g group] [-h host] [-p prompt] [-U user] [-u user] [command [arg ...]]
+usage: sudo [-ABbEHkNnPS] [-C num] [-D directory] [-g group] [-h host] [-p prompt] [-R directory] [-T timeout] [-u user] [VAR=value] [-i | -s] [command [arg ...]]
+usage: sudo -e [-ABkNnS] [-C num] [-D directory] [-g group] [-h host] [-p prompt] [-R directory] [-T timeout] [-u user] file ...
+angelicasanztrujillo@MacBookPro labs % echo $?
+1
+angelicasanztrujillo@MacBookPro labs % 
+
+cron format:
+Cron format is the scheduling system that Linux uses to run tasks automatically. It has five parts: minute, hour, day, month, and weekday. For example, 0 2 * * * means run every day at 2:00 AM.
+
+Mail vs logging:
+Mail means the system sends messages or errors to my email, while logging means the system writes them into a log file I can check later. Mail is like getting notified, logging is like keeping a diary.
+
+idempotence:
+Idempotence means running the same action many times always gives the same result. For example, if a script says “make folder X,” it makes it once, and the next times nothing changes because the folder already exists.
+
+Trap signals:
+Trap signals lets the script catch interruptions like pressing Ctrl+C. Normally that would stop it, but with a trap you can  tell the script what to do before stopping, like printing a message or cleaning up.
+
+Five self-questions:
+
+What is an exit code?
+It’s the number a command gives back after it runs. 0 means success, anything else means an error.
+
+How to schedule every 5 min?
+You can use */5 * * * * .
+
+Where does cron log?
+Cron logs usually go to /var/log/cron or /var/log/syslog depending on the system.
+
+How to make a script idempotent?
+You can check first to see if the change you want to make has already been made. If not, the script can go ahead and make the change. If the change has been made, the script can run again and again without making any additional changes. 
+Certain commands have idempotent options, like mkdir -p, useradd -m.
+You can also write the logic on the script. For example, if the folder already exists, don't create it again. If it doesn't exist, then create. 
+
+How to trap SIGINT?
+Use trap command, for example:
+trap "echo Stopped!" SIGINT
