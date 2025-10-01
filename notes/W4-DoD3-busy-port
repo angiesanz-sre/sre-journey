@@ -1,0 +1,64 @@
+1. Let's say that I am trying to start a web server on port 8080, but I get an error that the port is already in use. This means that something is already listening on port 8080. 
+For the purposes of this lab, I have opened port 8080 on a terminal window:
+angelicasanztrujillo@MacBookPro Downloads % python3 -m http.server 8080
+Serving HTTP on :: port 8080 (http://[::]:8080/) ...
+
+
+And on a different terminal window, I have tried to use that port but, becasue it's in use by another process, it turned an error that the port is already in use:
+angelicasanztrujillo@MacBookPro Downloads % python3 -m http.server 8080
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/usr/local/Cellar/python@3.13/3.13.7/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/server.py", line 1323, in <module>
+    test(
+    ~~~~^
+        HandlerClass=handler_class,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        protocol=args.protocol,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/Cellar/python@3.13/3.13.7/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/server.py", line 1270, in test
+    with ServerClass(addr, HandlerClass) as httpd:
+         ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.13/3.13.7/Frameworks/Python.framework/Versions/3.13/lib/python3.13/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/usr/local/Cellar/python@3.13/3.13.7/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/server.py", line 1317, in server_bind
+    return super().server_bind()
+           ~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/Cellar/python@3.13/3.13.7/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/local/Cellar/python@3.13/3.13.7/Frameworks/Python.framework/Versions/3.13/lib/python3.13/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 48] Address already in use
+angelicasanztrujillo@MacBookPro Downloads %
+
+2.  To troubleshoot, first check to see what is using port 8080. You can do that by using the command lsof -i :8080.
+
+angelicasanztrujillo@MacBookPro Downloads % lsof -i :8080
+COMMAND   PID                 USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+Python  62721 angelicasanztrujillo    4u  IPv6 0x1299097e090ea13c      0t0  TCP *:http-alt (LISTEN)
+angelicasanztrujillo@MacBookPro Downloads % 
+
+3. The output shows a process that is already using port 8080. Once the process is identified, you can choose to kill that process to make room for the new process you are trying to start. You should try to close that process gracefully. You can use sudo  kill -9 <PID> to force the process to stop. 
+angelicasanztrujillo@MacBookPro Downloads % kill -9 62721
+angelicasanztrujillo@MacBookPro Downloads % python3 -m http.server 8080
+Serving HTTP on :: port 8080 (http://[::]:8080/) ...
+
+4. Once the process is stopped or killed, you can try starting the web server again and get this result:
+angelicasanztrujillo@MacBookPro Downloads % kill -9 62721
+angelicasanztrujillo@MacBookPro Downloads % python3 -m http.server 8080
+Serving HTTP on :: port 8080 (http://[::]:8080/) ...
+
+
+Hypothesis: The error message that the port is already in use suggests obviously that there is another process already listening on that port. So the solution would be to use another port, or to close or kill that process as shown above to be able to use that port. 
+
+
+______________________________________________
+
+
+
