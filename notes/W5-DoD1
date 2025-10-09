@@ -1,0 +1,47 @@
+Theory to review
+
+Variables & types of variables:
+A variable is a container where you store data to be able to use it later. There are different types depending on the data they store. Int stores whole numbers. Float stores decimal numbers. Str (string) stores words or sentences or any type of text and it goes in between "". Boolean store logical values like true/false, yes/no, on/off, etc. 
+
+Functions:
+A block of code that you can reuse. 
+
+Modules/packages:
+A module is a .py file that contains Python code. 
+A package is a folder that contains one or more module. 
+
+Error handling:
+Means to predict and/or manage errors so the program doesn't crash. 
+
+CLI args:
+Command Line Arguments are values you pass to a python script when running it from the terminal.
+
+Five self-questions:
+
+How to parse arguments?
+Parsing arguments means reading the arguments and using them in the script. Argument refers to the information specified after the name of the script when running it. For example: Python3 hello.py Angelica. You can take the argument after the name of the script (Angelica) and use it on your script. 
+
+What is a module/package?
+A module is a .py file that contains Python code. 
+A package is a folder that contains one or more module.
+
+How to handle errors cleanly?
+You can use try, except, and finally to catch errors. For example: 
+try:
+    num = int(input("Enter a number: "))
+    print(10 / num)
+except ValueError:
+    print("That wasn’t a valid number.")
+except ZeroDivisionError:
+    print("You can’t divide by zero.")
+finally:
+    print("Done running.")
+
+What is unit testing?
+Unit testing means testing one small piece of code (like a function) to make sure it works correctly.
+
+How to structure a small CLI?
+A CLI is a Python script you run from the terminal and you pass arguments to. The basic structure is the main script which is the program that you start, and then one or more scripts called modules that holds reusable functions to keep the main code clean. 
+
+ 
+

@@ -1,0 +1,36 @@
+Theory to review
+
+SLO/SLA:
+SLO (Service Level Objective) is a goal for reliability that you set internally for your software while the SLA (Service Level Agreement) is like a contract with the users that you are going to meet certain levels of service and the penalties if you don't meet them.
+
+Rate vs. ratio:
+Rate measures how often something happens in a period of time, for example, 10 requests per second. Ratio measures part of a something in proportion. For example, 1 error for every 10 requests. 
+
+Sliding windows:
+It means analizing data within a time range, so you always get the most updated data. For example, if you have a report that shows how many logins are on a website in the past 30 days, the 30-day window is constantly moving showing you the latest data for the last 30 days.
+
+file parsing:
+File parsing is when a script reads and coverts the raw data of a file into something the script can work with. 
+
+Reporting:
+is taking raw data and making it into summaries, tables, dashboards to make it easy to read and actions can be taken.
+
+Five self-questions:
+
+What is an error budget?
+he amount of failure a system is allowed before breaking the SLO.
+
+Example: If SLO = 99.9% uptime, error budget = 0.1% downtime allowed.
+
+How to compute burn rate?
+Burn rate = (actual error rate) ÷ (allowed error rate). It shows how fast you’re using up your error budget.
+
+Why parse with streaming?
+It helps process large files reading it line by line instead of loading everything into the memory all at once. 
+
+What are edge cases?
+Extreme and abnormal inputs that the code doesn't usually expect. 
+
+How to print help tex?
+You can type the command and --help.
+
