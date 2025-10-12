@@ -19,4 +19,8 @@ else
   echo "network: OK"
 fi
 
-[[ $FAILS -gt 0 ]] && exit 1 || exit 0
+if [[ $FAILS -gt 0 ]]; then
+  exit 1
+else
+  exit 0
+fi

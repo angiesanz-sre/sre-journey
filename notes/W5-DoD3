@@ -1,0 +1,40 @@
+Theory to review
+
+Packaging basics:
+Putting your Python code into a package that makes it easy for others to use and install.
+
+Semantic versioning:
+It's standard way to number software releases and it is MAJOR, MINOR, PATCH. Major means major changes in the software that can affect compatibility with other versions. Minor means new features that don't affect the current use. Patches are to fix bugs and little things. 
+
+Logging:
+Logging is when your Python code writes errors, or messages, or the things that it's doing as it is doing it. Like when there is an errors log.
+
+Config via env:
+Instead of putting API keys, or passwords, or things like that directly into the code, you save them as environment variables and when you run the program in the environment they are read. This keeps the code safe. 
+
+DX (developer experience)
+The way you write code and how easy or pleasant you make it for other people to understand. So writing it with comments, good documentation, clear naming, error handling and things like that, so if others use it or need to change it or fix it, they know what the script is doing.
+
+
+Five self-questions (answer briefly in /notes):
+
+What is semver?
+Semantic Versioning. A standard way to number software releases. Major, Minor, Path.
+
+Why structured logs?
+Because it makes it easier to read for humans and computers to be able to analize them, search them and firlter them. 
+
+How to read env vars?
+In Python, use:
+import os
+
+api_key = os.getenv("API_KEY")
+print(api_key)
+
+What makes a good README?
+A clear explanation of what the script does, how to install and use it, and some examples.
+
+How to publish a release?
+Package it, name it and tag it with a version following the semantic versioning format, and upload it in places like github for other people to use it.
+
+
