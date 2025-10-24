@@ -1,0 +1,33 @@
+import json
+import csv
+
+#Load json data
+data = '[{"id":1,"name":"Ada","active":true},{"id":2,"name":"Alan","active":false}]'
+
+#Error handling
+try:
+    records = json.loads(data)
+except json.JSONDecodeError:
+    print("Error: Invalid JSON format.")
+
+print(len(records))
+
+#filter for active records
+active_records = [r for r in records if r["active"]]
+
+def get_active_records(records):
+    active = [r for r in records if r["active"]]
+    return active
+
+print(get_active_records(records))
+
+fields = ["id", "name"]
+
+#Write into a clean cvs file
+with open("people.csv", "w", newline="") as f:
+    writer = csv.DictWriter(f, fieldnames=fields, extrasaction="ignore")
+    writer.writeheader()
+    writer.writerows(active_records)
+print("CSV file created successfully!")
+
+
