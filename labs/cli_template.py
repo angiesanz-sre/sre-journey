@@ -3,7 +3,7 @@ import logging
 import requests 
 import sys
 
-#This defines all the flags or arguments and help
+# CLI flags
 parser = argparse.ArgumentParser()
 parser.add_argument("--query", help="What you want to query from the API")
 parser.add_argument("--host", help="Base URL of the API, for example https://api.example.com")
@@ -25,6 +25,7 @@ logging.basicConfig(level=level, format="%(asctime)s [%(levelname)s] %(message)s
 logger = logging.getLogger(__name__)
 logger.info("CLI setup complete. Ready to connect to API.")
 
+# Http session to connect to the API
 session = requests.Session()
 if args.insecure:
     session.verify = False
@@ -39,9 +40,11 @@ base = args.host.rstrip("/")
 url = f"{base}/{args.query.lstrip('/')}" if args.query else base
 logger.info(f"GET {url}")
 
+# API request
 try:
     resp = session.get(url, timeout=args.timeout)
     resp.raise_for_status()
+# Error handling 
 except requests.exceptions.SSLError:
     logger.error("TLS/SSL error. If this is a trusted server with a self-signed cert, re-run with --insecure. Otherwise, fix the certificate.")
     sys.exit(1)
@@ -58,6 +61,7 @@ except requests.exceptions.HTTPError as e:
     logger.error(f"HTTP {status if status is not None else 'error'} received. Body: {snippet or '(empty)'}")
     sys.exit(1)
 
+#Output needed
 if args.out:
     with open(args.out, "w", encoding="utf-8") as fh:
         fh.write(resp.text)
